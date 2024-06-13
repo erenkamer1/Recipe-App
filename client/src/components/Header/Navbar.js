@@ -39,6 +39,11 @@ const Navbar = ({isLoggedIn}) => {
         )}>
       Secret
       </NavLink>
+      <NavLink to={"/recipes"} style={ ({isActive}) => (
+        isActive ? linkStyles.activeLink : linkStyles.defaultLink
+        )}>
+      Recipes
+      </NavLink>
       </div>
       );
 }

@@ -10,7 +10,8 @@ import Home from "./containers/Home.js";
 import Login from "./containers/Login.js";
 import Register from "./containers/Register.js";
 import SecretPage from "./containers/SecretPage.js";
-import Navbar from "./components/Navbar.js";
+import Navbar from "./components/Header/Navbar.js";
+import RecipeList from "./components/RecipeList.js"
 import { URL } from "./config.js";
 import * as jose from "jose";
 
@@ -57,6 +58,7 @@ function App() {
   return (
     <Router>
       <Navbar isLoggedIn={isLoggedIn} />
+ 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -83,6 +85,7 @@ function App() {
             )
           }
         />
+        <Route path="/recipes" element={<RecipeList />} />
       </Routes>
     </Router>
   );

@@ -6,6 +6,7 @@ const SecretPage = (props) => {
   let navigate = useNavigate();
   return (
     <div className="secret_page">
+      {console.log(props.user)}
     <h1>This is the secret page for {props.user.email}</h1> 
     <h2>You can access here only after verify the token</h2>
     <button
