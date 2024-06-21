@@ -45,6 +45,7 @@ const Navbar = ({isLoggedIn}) => {
       Recipes
       </NavLink>
       </div>
+      
       );
 }
 

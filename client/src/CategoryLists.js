@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { URL, APP_ID, APP_KEY } from './config';
 import { Navigate, useNavigate } from "react-router-dom";
+import ViewCategory from './views/ViewCategory';
+import RecipeList from './components/RecipeList';
 
 function CategoryLists (props) {
 
     const [recipes , setRecipes] = useState([])
     const [query, setQuery] = useState("") // default search
     const [userInputSearch, setUserInputSearch] = useState("")
+    const [categoryTitle, setCategoryTitle] = useState("")
+    const params = useParams()
 
 const pizzaList = [
     {
@@ -7682,11 +7687,9 @@ const seafoodList = [
 
 
 
-   /*  const navigate = useNavigate() */
+    const navigate = useNavigate()
 
-    /* let handleClick = () => {
-        Navigate("/recipes")
-    } */
+ 
 
         useEffect(() => {
             const fetchData = async () => {
@@ -7707,85 +7710,63 @@ const seafoodList = [
             fetchData()
         }, [query])
     
-        /* const handleSearch = (categoryTitle) => {
-            const searchQuery = categoryTitle
-            setUserInputSearch(searchQuery)
-            setQuery(searchQuery)
-           
-        } */
-    
-       /*  let handleChange = (e) => {
-            e.preventDefault()
-            setUserInputSearch(e.target.value)
-            console.log(userInputSearch)
-        } */
-        const listRender =  <div className="recipe-list">
-        {recipes.map((recipe, index) => (
-            <div key={index} className="recipe">
-                <h2>{recipe.recipe.label}</h2>
-                <img src={recipe.recipe.image} alt={recipe.recipe.label} />
-                <p>Calories: {recipe.recipe.calories.toFixed(2)} Kcal</p>
-                <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer">View Recipe</a>
-            </div>
-        ))}
-    </div>
+       
+       
 
 const handleClick = (e) => {
-    // Find the closest parent div with class 'categories'
-    const h2Element = e.currentTarget.querySelector('h2');
-    if (h2Element) {
-        const categoryTitle = h2Element.textContent;
-        setQuery(categoryTitle);
-    } else {
-        console.error("No <h2> element found inside the clicked element.");
-        // Optionally handle this case, e.g., set a default query or show an error message
-    }
+    const catTitle = e.target.closest('div').querySelector('h2').textContent;
+    setCategoryTitle(catTitle)
+    console.log(categoryTitle)
+    navigate("/recipes", { state: { categoryTitle: catTitle } })
+
 }
 
         return (
-         <div className="categories">
-         <div className="pizza" onClick={handleClick} onSubmit={handleClick}>           
+            <div className="categories" onClick={handleClick}>
+         <div className="pizza" >           
             <img src={pizzaList[0].recipe.image} alt="pizza image"></img>
             <h2>Pizza</h2>
         </div>
-        <div className="chicken" >            
+        <div className="chicken" onClick={handleClick} onSubmit={handleClick}>            
             <img src={chickenList[0].recipe.image} alt="chicken image"  />
             <h2>Chicken</h2>
         </div>
         <div className="breakfast" >       
-            <img src={breakfastList[0].recipe.image} alt="Breakfast image" /* onClick={handleClick} */ />
+            <img src={breakfastList[0].recipe.image} alt="Breakfast image" onClick={handleClick} onSubmit={handleClick} />
             <h2>Breakfast</h2>
         </div>
         <div className="meat" >
-            <img src={meatList[0].recipe.image} alt="meat image" /* onClick={handleClick} */ />
+            <img src={meatList[0].recipe.image} alt="meat image" onClick={handleClick} onSubmit={handleClick} />
             <h2>Meat</h2>
         </div>
         <div className="dessert" >
-            <img src={dessertList[0].recipe.image} alt="meat image" /* onClick={handleClick} */ />
+            <img src={dessertList[0].recipe.image} alt="meat image" onClick={handleClick} onSubmit={handleClick}/>
             <h2>Dessert</h2>
         </div>
         <div className="dinner" >
-            <img src={dinnerList[0].recipe.image} alt="meat image" /* onClick={handleClick} */ />
+            <img src={dinnerList[0].recipe.image} alt="meat image"  onClick={handleClick} onSubmit={handleClick}/>
             <h2>Dinner</h2>
         </div>
         <div className="lunch" >
-            <img src={lunchList[0].recipe.image} alt="meat image" /* onClick={handleClick} */ />
+            <img src={lunchList[0].recipe.image} alt="meat image" onClick={handleClick} onSubmit={handleClick} />
             <h2>Lunch</h2>
         </div>
         <div className="snack" >
-            <img src={snackList[0].recipe.image} alt="meat image" /* onClick={handleClick} */ />
+            <img src={snackList[0].recipe.image} alt="meat image" onClick={handleClick} onSubmit={handleClick}/>
             <h2>Snack</h2>
         </div>
         <div className="tea-time" >
-            <img src={teaTimeList[0].recipe.image} alt="meat image" /* onClick={handleClick} */ />
+            <img src={teaTimeList[0].recipe.image} alt="meat image" onClick={handleClick} onSubmit={handleClick} />
             <h2>Teatime</h2>
         </div>
         <div className="seafood" >
-            <img src={seafoodList[0].recipe.image} alt="meat image" /* onClick={handleClick} */ />
+            <img src={seafoodList[0].recipe.image} alt="meat image" onClick={handleClick} onSubmit={handleClick}/>
             <h2>Seafood</h2>
         </div>
-         </div>
+         </div> 
             
+         
+         
         )
         
 }

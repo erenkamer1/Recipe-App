@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { URL, APP_ID, APP_KEY } from '../config';
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
+
 
 const RecipeList = () =>{
     const [recipes , setRecipes] = useState([])
-    const [query, setQuerey] = useState("") // default search
+    const [query, setQuery] = useState("") // default search
     const [userInputSearch, setUserInputSearch] = useState("")
+    
 
-       
+    const location = useLocation()
 
 
     useEffect(() => {
+        if (location.state) {
+            let catTitle =  location.state.categoryTitle
+            setQuery(catTitle)
+        }
+        
+      }, [location]);
+
+
+    useEffect(() => {
+        if (query !== "") {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`https://api.edamam.com/search`, {
@@ -25,38 +37,34 @@ const RecipeList = () =>{
             } catch (error) {
                 console.error('Error fetching the recipes:', error)
             }
-            
         }
-        fetchData()
+        fetchData()  
+        }
     }, [query])
 
     const handleSearch = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const searchQuery = userInputSearch
         setUserInputSearch(searchQuery)
-       /*  if (userInputSearch === "chicken") {
-            setRecipes(chickenList)
-        } else {
-            setRecipes([])
-        } */
+        setQuery(searchQuery)
        
-       setQuerey(searchQuery)
-       console.log(recipes)
-    }
+    } 
 
-    let handleChange = (e) => {
-        e.preventDefault()
+     let handleChange = (e) => {
+        
         setUserInputSearch(e.target.value)
         console.log(userInputSearch)
     }
 
+
     return (
         <div className="recipe-list">
-            <form onSubmit={handleSearch}>
-                <input type="text" name="query" placeholder="Search for a recipe" onChange={handleChange}/>
-                <button type="submit">Search</button>
+            <form onSubmit={handleSearch} className='search-input'>
+                <input type="text" name="query" placeholder="Search for a recipe" onChange={handleChange} className='searchBar'/>
+                <button type="submit" onSubmit={handleSearch} className='search-button'>Search</button>
             </form>
-            <div className="recipe-list">
+            <h2 className='categories-heading'>{query.toUpperCase()}</h2>
+            <div className="categories">
                 {recipes.map((recipe, index) => (
                     <div key={index} className="recipe">
                         <h2>{recipe.recipe.label}</h2>

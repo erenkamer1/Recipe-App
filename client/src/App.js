@@ -88,7 +88,7 @@ function App() {
           }
         />
         <Route path="/recipes" element={<RecipeList />} />
-        {/* <Route path="/home" element={<RecipeList />} /> */}
+        
       </Routes>
     </Router>
   );

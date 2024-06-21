@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import CategoryLists from '../CategoryLists';
 import { URL, APP_ID, APP_KEY } from '../config';
 import { Navigate, useNavigate } from "react-router-dom";
 
-const ViewCategory = () =>{
+const ViewCategory = (categoryTitle) =>{
     const [recipes , setRecipes] = useState([])
-    const [query, setQuerey] = useState("") 
+    const [query, setQuerey] = useState(categoryTitle) 
     const [userInputSearch, setUserInputSearch] = useState("")
 
        

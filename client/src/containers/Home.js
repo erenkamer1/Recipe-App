@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { URL, APP_ID, APP_KEY } from '../config';
 import CategoryLists from "../CategoryLists.js"
 import BestRecipes  from '../BestRecipes.js';
-import { Navigate, useNavigate } from "react-router-dom";
+
 
 const Home = () => {
 const [recipes , setRecipes] = useState([])
     const [query, setQuery] = useState("") // default search
     const [userInputSearch, setUserInputSearch] = useState("")
-    /* const [mealType , setMealType] = useState("") */
+    
      
-               
+const params = useParams()
        
 
 
@@ -60,7 +61,7 @@ const [recipes , setRecipes] = useState([])
 
     return (
         <>
-        <div className="recipe-list">
+        <div >
             <form onSubmit={handleSearch} className='search-input'>
                 <input type="text" className='searchBar' name="query" placeholder="Search for a recipe" onChange={handleChange}/>
                 <button type="submit" className='search-button' >Search</button>
@@ -69,7 +70,7 @@ const [recipes , setRecipes] = useState([])
         </div>
         <div>
             <h2 className='categories-heading'>Categories</h2>
-            <CategoryLists handleSearch={handleSearch} listRender={listRender} useEffect={useEffect} handleChange={handleChange} />
+            <CategoryLists handleSearch={handleSearch} listRender={listRender} useEffect={useEffect} handleChange={handleChange} params={params}/>
         </div>
         <div> 
         <h2 className='best-recipes-heading'>Best Recipes</h2>
