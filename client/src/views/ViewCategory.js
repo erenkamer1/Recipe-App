@@ -3,9 +3,9 @@ import axios from 'axios';
 import { URL, APP_ID, APP_KEY } from '../config';
 import { Navigate, useNavigate } from "react-router-dom";
 
-const RecipeList = () =>{
+const ViewCategory = () =>{
     const [recipes , setRecipes] = useState([])
-    const [query, setQuerey] = useState("") // default search
+    const [query, setQuerey] = useState("") 
     const [userInputSearch, setUserInputSearch] = useState("")
 
        
@@ -30,32 +30,25 @@ const RecipeList = () =>{
         fetchData()
     }, [query])
 
-    const handleSearch = (e) => {
+  /*   const handleSearch = (e) => {
         e.preventDefault()
         const searchQuery = userInputSearch
         setUserInputSearch(searchQuery)
-       /*  if (userInputSearch === "chicken") {
-            setRecipes(chickenList)
-        } else {
-            setRecipes([])
-        } */
+     
        
        setQuerey(searchQuery)
        console.log(recipes)
-    }
+    } */
 
-    let handleChange = (e) => {
+   /*  let handleChange = (e) => {
         e.preventDefault()
         setUserInputSearch(e.target.value)
         console.log(userInputSearch)
-    }
+    } */
 
     return (
-        <div className="recipe-list">
-            <form onSubmit={handleSearch}>
-                <input type="text" name="query" placeholder="Search for a recipe" onChange={handleChange}/>
-                <button type="submit">Search</button>
-            </form>
+        
+            
             <div className="recipe-list">
                 {recipes.map((recipe, index) => (
                     <div key={index} className="recipe">
@@ -66,8 +59,8 @@ const RecipeList = () =>{
                     </div>
                 ))}
             </div>
-        </div>
+       
     )
 }
 
-export default RecipeList;
+export default ViewCategory;

@@ -1,38 +1,92 @@
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.search-input {
+  position: relative;
+  bottom: 5em;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.categories {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 0.5em;
+  gap: 0.25em;
+  margin-bottom: 5em;
+  position: relative;
+  bottom: 10em;
 }
 
-.App-link {
-  color: #61dafb;
+.categories > div {
+  flex-basis: calc(18% - 0.25em);
+  margin: 0 0.25em;
+  background-color: #fff;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.categories > div:hover {
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
+}
+
+.categories-heading {
+  text-align: left;
+  margin-left: 3em;
+  display: flex;
+  align-items: flex-start;
+  font-weight: bold;
+  font-size: 2em;
+  color: #333;
+  position: relative;
+  bottom: 5em;
+}
+
+.best-recipes-heading {
+  text-align: left;
+  margin-left: 3em;
+  display: flex;
+  align-items: flex-start;
+  font-weight: bold;
+  font-size: 2em;
+  color: #333;
+  position: relative;
+  bottom: 5em;
+}
+
+.searchBar {
+  display: inline-block;
+  width: 40%;
+  height: 3em;
+  padding: 0.25em;
+  border: none;
+  border-radius: 0.25em;
+  font-size: 1em;
+  background-color: #fff;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.1);
+  margin-top: 3.125em;
+}
+
+.searchBar:focus {
+  outline: none;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
+}
+
+.search-button {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 0.25em 0.5em;
+  font-size: 1.8em;
+  cursor: pointer;
+  border-radius: 0.25em;
+  margin-left: 0.25em;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #3e8e41;
 }

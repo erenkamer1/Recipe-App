@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './App.css';
 import axios from "axios";
 import {
   BrowserRouter as Router,
@@ -14,6 +15,7 @@ import Navbar from "./components/Header/Navbar.js";
 import RecipeList from "./components/RecipeList.js"
 import { URL } from "./config.js";
 import * as jose from "jose";
+import ViewCategory from "./views/ViewCategory.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -86,6 +88,7 @@ function App() {
           }
         />
         <Route path="/recipes" element={<RecipeList />} />
+        {/* <Route path="/home" element={<RecipeList />} /> */}
       </Routes>
     </Router>
   );
