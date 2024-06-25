@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CategoryLists from '../CategoryLists';
 import { URL, APP_ID, APP_KEY } from '../config';
@@ -31,7 +31,7 @@ const ViewCategory = (categoryTitle) =>{
         fetchData()
     }, [query])
 
-  /*   const handleSearch = (e) => {
+    const handleSearch = (e) => {
         e.preventDefault()
         const searchQuery = userInputSearch
         setUserInputSearch(searchQuery)
@@ -39,13 +39,13 @@ const ViewCategory = (categoryTitle) =>{
        
        setQuerey(searchQuery)
        console.log(recipes)
-    } */
+    }
 
-   /*  let handleChange = (e) => {
+    let handleChange = (e) => {
         e.preventDefault()
         setUserInputSearch(e.target.value)
         console.log(userInputSearch)
-    } */
+    }
 
     return (
         
@@ -64,4 +64,4 @@ const ViewCategory = (categoryTitle) =>{
     )
 }
 
-export default ViewCategory;
+export default ViewCategory; */

@@ -24,7 +24,11 @@ async function connecting() {
 }
 connecting();
 
+
+
+
 // =============== ROUTES ==============================
 app.use("/users", require("./Routes/users.routes"));
+app.use("/favorites", require("./Routes/favorites.routes"));
 // =============== START SERVER =====================
 app.listen(port, () => console.log(`server listening on port ${port}`));

@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { URL, APP_ID, APP_KEY } from '../config';
-import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import {  APP_ID, APP_KEY } from '../config';
+import {  useLocation, useParams } from "react-router-dom";
 
 
-const RecipeList = () =>{
+
+const RecipeList = ({favClick, favRecipes, setFavRecipes, handleFavClick}) =>{
     const [recipes , setRecipes] = useState([])
     const [query, setQuery] = useState("") // default search
     const [userInputSearch, setUserInputSearch] = useState("")
     
+   
+    const location = useLocation();
+    const [categoryTitle, setCategoryTitle] = useState(location.state ? location.state.categoryTitle || location.state.query : "")
+    
+    
 
-    const location = useLocation()
+   
+
+
+ 
 
 
     useEffect(() => {
-        if (location.state) {
-            let catTitle =  location.state.categoryTitle
-            setQuery(catTitle)
-        }
         
-      }, [location]);
-
-
-    useEffect(() => {
-        if (query !== "") {
         const fetchData = async () => {
             try {
+                setRecipes([]);
+                let searchQuery = categoryTitle || query ;
                 const response = await axios.get(`https://api.edamam.com/search`, {
                     params: {
-                        q: query,
+                        q: searchQuery,
                         app_id: APP_ID,
                         app_key: APP_KEY
                     }});
@@ -39,22 +41,22 @@ const RecipeList = () =>{
             }
         }
         fetchData()  
-        }
-    }, [query])
+        
+    }, [query, categoryTitle ])
 
     const handleSearch = (e) => {
         e.preventDefault();
-        const searchQuery = userInputSearch
-        setUserInputSearch(searchQuery)
-        setQuery(searchQuery)
-       
-    } 
+        setCategoryTitle("")
+        setUserInputSearch(userInputSearch);
+        setQuery(userInputSearch);
+    };
 
-     let handleChange = (e) => {
-        
-        setUserInputSearch(e.target.value)
-        console.log(userInputSearch)
-    }
+    const handleChange = (e) => {
+        e.preventDefault();
+        setUserInputSearch(e.target.value);
+    };
+    
+    
 
 
     return (
@@ -63,7 +65,8 @@ const RecipeList = () =>{
                 <input type="text" name="query" placeholder="Search for a recipe" onChange={handleChange} className='searchBar'/>
                 <button type="submit" onSubmit={handleSearch} className='search-button'>Search</button>
             </form>
-            <h2 className='categories-heading'>{query.toUpperCase()}</h2>
+            
+            <h2 className='categories-heading'>{categoryTitle}</h2>
             <div className="categories">
                 {recipes.map((recipe, index) => (
                     <div key={index} className="recipe">
@@ -71,6 +74,7 @@ const RecipeList = () =>{
                         <img src={recipe.recipe.image} alt={recipe.recipe.label} />
                         <p>Calories: {recipe.recipe.calories.toFixed(2)} Kcal</p>
                         <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer">View Recipe</a>
+                        <button onClick={(e) => handleFavClick(e, recipe)}>FAV</button>
                     </div>
                 ))}
             </div>

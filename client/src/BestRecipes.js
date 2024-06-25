@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { URL, APP_ID, APP_KEY } from './config';
-import { Navigate, useNavigate } from "react-router-dom";
+import React from 'react';
+
 
 function BestRecipes () { 
-    const [recipes , setRecipes] = useState([])
-    const [query, setQuery] = useState("") // default search
-    const [userInputSearch, setUserInputSearch] = useState("")
-    const [categoryTitle, setCategoryTitle] = useState("")
-   const navigate = useNavigate()
-
-    
 
 const molePoblano = [
     {
@@ -7965,54 +7955,58 @@ const blackBeanStew = [
         }
     }
 ]
-const handleClick = (e) => {
-    const catTitle = e.target.closest('div').querySelector('h2').textContent;
-    setCategoryTitle(catTitle)
-    console.log(categoryTitle)
-    navigate("/recipes", { state: { categoryTitle: catTitle } })
 
-}
     return (
-        <div className="categories">
-            <div className="mole-poblano" onClick={handleClick} >
+        <div className='categories' >
+            <div className="mole-poblano"  >
                 <img src={molePoblano[0].recipe.image} alt="mole poblano" ></img>
                 <h2>{molePoblano[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="sushi" onClick={handleClick}>
+            <div className="sushi" >
                 <img src={sushi[0].recipe.image} alt="sushi" />
                 <h2>{sushi[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="peking-duck" onClick={handleClick} >
+            <div className="peking-duck"  >
                 <img src={pekingDuck[0].recipe.image} alt="pekingDuck" />
                 <h2>{pekingDuck[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="pizza" onClick={handleClick}>           
+            <div className="pizza" >           
             <img src={pizza[0].recipe.image} alt="pizza image" />
             <h2>Pizza</h2>
+            <button>FAV</button>
             </div>
-            <div className="cheeseburger" onClick={handleClick}>
+            <div className="cheeseburger" >
                 <img src={cheeseburger[0].recipe.image} alt="cheeseburger" />
                 <h2>{cheeseburger[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="coq-au-vin" onClick={handleClick}>
+            <div className="coq-au-vin" >
                 <img src={coqAuVin[0].recipe.image} alt="coqAuVin" />
                 <h2>{coqAuVin[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="paella" onClick={handleClick}>
+            <div className="paella" >
                 <img src={paella[0].recipe.image} alt="paella" />
                 <h2>{paella[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="tandoori-Chicken" onClick={handleClick}>
+            <div className="tandoori-Chicken" >
                 <img src={tandooriChicken[0].recipe.image} alt="tandooriChicken" />
                 <h2>{tandooriChicken[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="sauerbraten" onClick={handleClick}>
+            <div className="sauerbraten" >
                 <img src={sauerbraten[0].recipe.image} alt="sauerbraten" />
                 <h2>{sauerbraten[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
-            <div className="black-bean-stew" onClick={handleClick}>
+            <div className="black-bean-stew" >
                 <img src={blackBeanStew[0].recipe.image} alt="black-bean-stew" />
                 <h2>{blackBeanStew[0].recipe.label}</h2>
+                <button>FAV</button>
             </div>
         </div>
     )

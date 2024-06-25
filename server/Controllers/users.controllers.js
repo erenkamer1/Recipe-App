@@ -79,4 +79,16 @@ const verify_token = (req, res) => {
   });
 };
 
-module.exports = { register, login, verify_token };
+/* const profile = async (req, res) => {
+  const { email, password, password2 } = req.body; 
+if (email) {
+  try {
+    const user = await User.findOne({ email });
+    res.send(email)
+
+} catch (e) {
+  res.send(e)
+}
+}
+} */
+module.exports = { register, login, verify_token};
