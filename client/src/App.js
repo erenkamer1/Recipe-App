@@ -62,30 +62,17 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const favClick = async (e, recipe) => {
+  const favClick = async (e) => {
     e.preventDefault();
-  /*   const recipe = {
+    const recipeData = {
         label: e.target.closest("div").querySelector("h2").textContent,
         image: e.target.closest("div").querySelector("img").getAttribute("src"),
         calories: e.target.closest("div").querySelector("p").textContent,
         viewRecipe: e.target.closest("div").querySelector("a").getAttribute("href")
-    } */
-    try {
-     const res = await axios.post(`${URL}/favorites/add`, {userId: user.id, recipe})
-      setFavRecipes(res.data)
-      console.log("Response data:", res.data);
-      alert("Recipe added to favorites")
-      console.log(favRecipes)
-      console.log(res.data)
-    } catch (e) {
-      console.log("error ==>>", e)
     }
-
-
-
-    /* setFavRecipes([...favRecipes , recipeData])
+    setFavRecipes([...favRecipes , recipeData])
     console.log(favRecipes)
-    alert("Recipe added to favourites") */
+    alert("Recipe added to favourites")
 }
 
   return (
@@ -118,7 +105,7 @@ function App() {
             )
           }
         />
-        <Route path="/recipes" element={<RecipeList  favRecipes={favRecipes} setFavRecipes={setFavRecipes} handleFavClick={favClick}/>} />
+        <Route path="/recipes" element={<RecipeList  favRecipes={favRecipes} setFavRecipes={setFavRecipes} favClick={favClick}/>} />
         <Route path="/recipes/:category" element={<RecipeList favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>} favClick={favClick}/>
         <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile logout={logout} user={user} favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>)} />
       </Routes>

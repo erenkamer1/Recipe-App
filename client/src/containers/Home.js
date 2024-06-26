@@ -64,7 +64,7 @@ const Home = ({ favClick }) => {
           >
             View Recipe
           </a>
-          <button onClick={(e) => favClick(e, recipe)}>FAV</button>
+          <button onClick={favClick}>FAV</button>
         </div>
       ))}
     </div>
@@ -73,7 +73,7 @@ const Home = ({ favClick }) => {
   const handleClick = (e) => {
     e.preventDefault();
     setQuery("");
-    const catTitle = e.target.closest("div").querySelector("h2").textContent;
+    const catTitle = e.target.closest("div").querySelector("h2").textContent.toUpperCase();
     setCategoryTitle(catTitle);
     navigate(`/recipes/${catTitle}`, { state: { categoryTitle: catTitle } });
     setDefaultRecipes(false);
@@ -108,7 +108,7 @@ const Home = ({ favClick }) => {
           <div>
             <h2 className="best-recipes-heading">Best Recipes</h2>
             <div>
-              <BestRecipes handleClick={handleClick} />
+              <BestRecipes handleClick={handleClick} favClick={favClick}/>
             </div>
           </div>
         </>

@@ -1,7 +1,7 @@
 import React , {useEffect} from "react";
 import { Navigate, useParams } from "react-router-dom";
 
-function Profile ({props}) {
+function Profile (props) {
     const {  favRecipes, setFavRecipes } = props
     console.log(favRecipes)
     return (
@@ -14,8 +14,8 @@ function Profile ({props}) {
                 <div key={idx}>
                     <h3>{recipe.label}</h3>
                     <img src={recipe.image} alt={recipe.label} />
-                    {/* <p>{recipe.calories}</p>
-                    <a href={recipe.viewRecipe} target="_blank" rel="noopener noreferrer">View Recipe</a> */}
+                    <p>{recipe.calories}</p>
+                    <a href={recipe.viewRecipe} target="_blank" rel="noopener noreferrer">View Recipe</a>
                     </div>
             )
 

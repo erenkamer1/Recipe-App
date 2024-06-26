@@ -5,7 +5,7 @@ import {  useLocation, useParams } from "react-router-dom";
 
 
 
-const RecipeList = ({favClick, favRecipes, setFavRecipes, handleFavClick}) =>{
+const RecipeList = ({favClick, favRecipes, setFavRecipes}) =>{
     const [recipes , setRecipes] = useState([])
     const [query, setQuery] = useState("") // default search
     const [userInputSearch, setUserInputSearch] = useState("")
@@ -70,11 +70,11 @@ const RecipeList = ({favClick, favRecipes, setFavRecipes, handleFavClick}) =>{
             <div className="categories">
                 {recipes.map((recipe, index) => (
                     <div key={index} className="recipe">
-                        <h2>{recipe.recipe.label}</h2>
+                        <h2>{recipe.recipe.label.toUpperCase()}</h2>
                         <img src={recipe.recipe.image} alt={recipe.recipe.label} />
                         <p>Calories: {recipe.recipe.calories.toFixed(2)} Kcal</p>
                         <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer">View Recipe</a>
-                        <button onClick={(e) => handleFavClick(e, recipe)}>FAV</button>
+                        <button onClick={favClick}>FAV</button>
                     </div>
                 ))}
             </div>

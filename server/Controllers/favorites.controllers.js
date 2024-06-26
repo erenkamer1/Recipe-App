@@ -1,4 +1,4 @@
-const User = require("../models/users.models");
+/* const User = require("../Models/users.models");
 const bcrypt = require("bcryptjs"); 
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
@@ -10,15 +10,15 @@ const jwt_secret = process.env.JWT_SECRET;
 //     password: form.password,
 //     password2: form.password2
 //  }
-
+let favRecipes = []
 const addToFav = async (req, res) => {
     const { recipe, userId} = req.body
     if(userId) {
         try {
             const user = await User.findById(userId)    
-            user.favRecipes.push(recipe)
+            favRecipes.push(recipe)
             await user.save()
-            res.status(200).send(user.favRecipes);
+            res.status(200).send(favRecipes);
         } catch (e) {
             res.send("error ==>>>", e)
         }
@@ -38,4 +38,4 @@ const getFavRecipes = async (req, res) => {
     }
 }
 
-module.exports = {addToFav, getFavRecipes}
+module.exports = {addToFav, getFavRecipes} */
