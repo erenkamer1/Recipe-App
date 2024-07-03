@@ -17,7 +17,6 @@ const Home = ({ favClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setRecipes([]);
         const searchQuery = categoryTitle || query;
         if (searchQuery) {
           const response = await axios.get(`https://api.edamam.com/search`, {
@@ -42,7 +41,7 @@ const Home = ({ favClick }) => {
     const searchedQuery = userInputSearch;
     setUserInputSearch(searchedQuery);
     setQuery(searchedQuery);
-    navigate(`/recipes/${searchedQuery}`, { state: { query: searchedQuery } });
+    navigate(`/explore/${searchedQuery}`, { state: { query: searchedQuery } });
   };
 
   const handleChange = (e) => {
@@ -75,7 +74,7 @@ const Home = ({ favClick }) => {
     setQuery("");
     const catTitle = e.target.closest("div").querySelector("h2").textContent.toUpperCase();
     setCategoryTitle(catTitle);
-    navigate(`/recipes/${catTitle}`, { state: { categoryTitle: catTitle } });
+    navigate(`/explore/${catTitle}`, { state: { categoryTitle: catTitle } });
     setDefaultRecipes(false);
   };
 

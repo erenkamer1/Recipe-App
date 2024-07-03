@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
-function BestRecipes () { 
+function BestRecipes ({favClick, handleClick}) { 
+    /* conts [favs, setFavs] = useState([]) */
+
+    const navigate = useNavigate();
 
 const molePoblano = [
     {
@@ -7956,57 +7960,100 @@ const blackBeanStew = [
     }
 ]
 
+
+
+
     return (
         <div className='categories' >
-            <div className="mole-poblano"  >
-                <img src={molePoblano[0].recipe.image} alt="mole poblano" ></img>
-                <h2>{molePoblano[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards">
+                <h2 onClick={handleClick}>{molePoblano[0].recipe.label}</h2>
+                <img src={"/assets/BestRecipes/mole.jpg"} alt="mole poblano" onClick={handleClick}></img>
+                <p onClick={handleClick}>Calories: {molePoblano[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="sushi" >
-                <img src={sushi[0].recipe.image} alt="sushi" />
-                <h2>{sushi[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards" >
+                <h2 onClick={handleClick}>{sushi[0].recipe.label}</h2>
+                <img src={"/assets/BestRecipes/sushi.jpg"} alt="mole poblano" onClick={handleClick}></img>
+                <p onClick={handleClick}>Calories: {sushi[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="peking-duck"  >
-                <img src={pekingDuck[0].recipe.image} alt="pekingDuck" />
-                <h2>{pekingDuck[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards"  >
+                <h2 onClick={handleClick}>{pekingDuck[0].recipe.label}</h2>
+                <img src={"/assets/BestRecipes/peking-duck.jpg"} alt="mole poblano" onClick={handleClick}></img>
+                <p onClick={handleClick}>Calories: {pekingDuck[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="pizza" >           
-            <img src={pizza[0].recipe.image} alt="pizza image" />
-            <h2>Pizza</h2>
-            <button>FAV</button>
+            <div className="best-recipe-cards" >           
+                <h2 onClick={handleClick}>{pizza[0].recipe.label}</h2>
+                <img onClick={handleClick} src={"/assets/BestRecipes/margarita.jpg"} alt="mole poblano" ></img>
+                <p onClick={handleClick}>Calories: {pizza[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="cheeseburger" >
-                <img src={cheeseburger[0].recipe.image} alt="cheeseburger" />
-                <h2>{cheeseburger[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards" >
+                <h2 onClick={handleClick}>{cheeseburger[0].recipe.label}</h2>
+                <img onClick={handleClick} src={"/assets/BestRecipes/cheesebur.jpg"} alt="mole poblano" ></img>
+                <p onClick={handleClick}>Calories: {cheeseburger[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="coq-au-vin" >
-                <img src={coqAuVin[0].recipe.image} alt="coqAuVin" />
-                <h2>{coqAuVin[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards" >
+                <h2 onClick={handleClick}>{coqAuVin[0].recipe.label}</h2>
+                <img onClick={handleClick} src={"/assets/BestRecipes/coq au vin.jpg"} alt="mole poblano" ></img>
+                <p onClick={handleClick}>Calories: {coqAuVin[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="paella" >
-                <img src={paella[0].recipe.image} alt="paella" />
-                <h2>{paella[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards" >
+                <h2 onClick={handleClick}>{paella[0].recipe.label}</h2>
+                <img onClick={handleClick} src={"/assets/BestRecipes/paella.jpg"} alt="mole poblano" ></img>
+                <p onClick={handleClick}>Calories: {paella[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="tandoori-Chicken" >
-                <img src={tandooriChicken[0].recipe.image} alt="tandooriChicken" />
-                <h2>{tandooriChicken[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards" >
+                <h2 onClick={handleClick}>{tandooriChicken[0].recipe.label}</h2>
+                <img onClick={handleClick} src={"/assets/BestRecipes/tandoori.jpg"} alt="mole poblano" ></img>
+                <p onClick={handleClick}>Calories: {tandooriChicken[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="sauerbraten" >
-                <img src={sauerbraten[0].recipe.image} alt="sauerbraten" />
-                <h2>{sauerbraten[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards" >
+                <h2 onClick={handleClick}>{sauerbraten[0].recipe.label}</h2>
+                <img onClick={handleClick} src={"/assets/BestRecipes/saurbraten.jpg"} alt="mole poblano" ></img>
+                <p onClick={handleClick}>Calories: {sauerbraten[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
-            <div className="black-bean-stew" >
-                <img src={blackBeanStew[0].recipe.image} alt="black-bean-stew" />
-                <h2>{blackBeanStew[0].recipe.label}</h2>
-                <button>FAV</button>
+            <div className="best-recipe-cards" >
+                <h2 onClick={handleClick}>{blackBeanStew[0].recipe.label}</h2>
+                <img onClick={handleClick} src={"/assets/BestRecipes/black bean.jpg"} alt="mole poblano" ></img>
+                <p onClick={handleClick}>Calories: {sauerbraten[0].recipe.calories.toFixed(2)} Kcal</p>
+                <section className='add-to-fav'>
+                <h2>Add to FAVS</h2>
+                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
+                </section>    
             </div>
         </div>
     )

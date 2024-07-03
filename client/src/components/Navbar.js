@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = ({ isLoggedIn }) => {
   const linkStyles = {
     textDecoration: "none",
-    color: "blue",
+    color: "green",
     marginRight: "10px",
     cursor: "pointer",
   };
@@ -40,14 +40,19 @@ const Navbar = ({ isLoggedIn }) => {
         Secret
       </NavLink>
       
-      <NavLink to="/recipes"   style={({isActive}) => 
+      <NavLink to="/explore"   style={({isActive}) => 
         ( isActive ? activeLinkStyles : linkStyles)}>
-        Recipes
+        Explore
       </NavLink>
 
       <NavLink to={"/profile"} style={({isActive}) => (
         isActive ? activeLinkStyles : linkStyles)}>
           Profile
+          </NavLink>
+
+          <NavLink to={"/shopping-list"} style={({isActive}) => (
+        isActive ? activeLinkStyles : linkStyles)}>
+          Shopping List
           </NavLink>
       
       

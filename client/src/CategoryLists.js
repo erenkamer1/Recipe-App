@@ -1,8 +1,8 @@
-import React, { useState} from 'react';
+import React from 'react';
 
 
 
-function CategoryLists ({handleClick, favClick}) {
+function CategoryLists ({handleClick}) {
 
     
 
@@ -7663,43 +7663,43 @@ const seafoodList = [
         return (
             <div  className='categories' >
          <div className="pizza" >           
-            <img src={pizzaList[0].recipe.image} alt="pizza image" onClick={handleClick}></img>
+            <img src={"/assets/categoryList/pizza.jpg"} alt="pizza " onClick={handleClick}></img>
             <h2 onClick={handleClick}>Pizza</h2>
         </div>
         <div className="chicken" >            
-            <img src={chickenList[0].recipe.image} alt="chicken image"  onClick={handleClick}/>
+            <img src={"/assets/categoryList/chicken.jpg"} alt="chicken "  onClick={handleClick}/>
             <h2 onClick={handleClick}>Chicken</h2>
         </div>
         <div className="breakfast" >       
-            <img src={breakfastList[0].recipe.image} alt="Breakfast image" onClick={handleClick}/>
+            <img src={"/assets/categoryList/breakfast.png"} alt="Breakfast " onClick={handleClick}/>
             <h2 onClick={handleClick}>Breakfast</h2>
         </div>
         <div className="meat" >
-            <img src={meatList[0].recipe.image} alt="meat image"  onClick={handleClick}/>
+            <img src={"/assets/categoryList/meat.jpg"} alt="meat "  onClick={handleClick}/>
             <h2 onClick={handleClick}>Meat</h2>
         </div>
         <div className="dessert" >
-            <img src={dessertList[0].recipe.image} alt="meat image" onClick={handleClick}/>
+            <img src={"/assets/categoryList/dessert.jpg"} alt="meat " onClick={handleClick}/>
             <h2 onClick={handleClick}>Dessert</h2>
         </div>
         <div className="dinner" >
-            <img src={dinnerList[0].recipe.image} alt="meat image"  onClick={handleClick}/>
+            <img src={"/assets/categoryList/dinner.jpg"} alt="meat "  onClick={handleClick}/>
             <h2 onClick={handleClick}>Dinner</h2>
         </div>
         <div className="lunch" >
-            <img src={lunchList[0].recipe.image} alt="meat image" onClick={handleClick}/>
+            <img src={"/assets/categoryList/luncj.jpg"} alt="meat " onClick={handleClick}/>
             <h2 onClick={handleClick}>Lunch</h2>
         </div>
         <div className="snack" >
-            <img src={snackList[0].recipe.image} alt="meat image" onClick={handleClick}/>
+            <img src={"/assets/categoryList/snack.jpeg"} alt="meat " onClick={handleClick}/>
             <h2 onClick={handleClick}>Snack</h2>
         </div>
         <div className="tea-time" >
-            <img src={teaTimeList[0].recipe.image} alt="meat image" />
+            <img src={"/assets/categoryList/teatime.jpg"} alt="meat " />
             <h2 onClick={handleClick}>Teatime</h2>
         </div>
         <div className="seafood" >
-            <img src={seafoodList[0].recipe.image} alt="meat image" />
+            <img src={"/assets/categoryList/seafood.jpg"} alt="meat " />
             <h2 onClick={handleClick}>Seafood</h2>
         </div>
          </div> 

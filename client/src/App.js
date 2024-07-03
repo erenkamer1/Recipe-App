@@ -13,10 +13,12 @@ import Login from "./containers/Login.js";
 import Register from "./containers/Register.js";
 import SecretPage from "./containers/SecretPage.js";
 import Navbar from "./components/Navbar.js";
-import RecipeList from "./components/RecipeList.js"
+import Explore from "./components/Explore.js"
 import { URL } from "./config.js";
 import * as jose from "jose";
 import Profile from "./components/Profile.js";
+import ShoppingList from "./components/ShoppingList.js";
+import SingleRecipe from "./components/SingleRecipe.js";
 
 
 function App() {
@@ -41,7 +43,6 @@ function App() {
     };
     verify_token();
   }, [token]);
-
   
 
   const login = (token) => {
@@ -63,13 +64,12 @@ function App() {
   };
 
   const favClick = async (e) => {
-    e.preventDefault();
-    const recipeData = {
+     e.preventDefault(); 
+     const recipeData = {
         label: e.target.closest("div").querySelector("h2").textContent,
         image: e.target.closest("div").querySelector("img").getAttribute("src"),
-        calories: e.target.closest("div").querySelector("p").textContent,
-        viewRecipe: e.target.closest("div").querySelector("a").getAttribute("href")
-    }
+        calories: e.target.closest("div").querySelector("p").textContent
+    } 
     setFavRecipes([...favRecipes , recipeData])
     console.log(favRecipes)
     alert("Recipe added to favourites")
@@ -105,9 +105,11 @@ function App() {
             )
           }
         />
-        <Route path="/recipes" element={<RecipeList  favRecipes={favRecipes} setFavRecipes={setFavRecipes} favClick={favClick}/>} />
-        <Route path="/recipes/:category" element={<RecipeList favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>} favClick={favClick}/>
+        <Route path="/explore" element={<Explore  favRecipes={favRecipes} setFavRecipes={setFavRecipes} favClick={favClick}/>} />
+        <Route path="/explore/:category" element={<Explore favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>} />
         <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile logout={logout} user={user} favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>)} />
+        <Route path="/shopping-list" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ShoppingList user={user} />)} />
+        <Route path="/home/:recipe" element={<SingleRecipe />} />
       </Routes>
     </Router>
   );
