@@ -79,9 +79,38 @@ const verify_token = (req, res) => {
   });
 };
 
+const addFavRecipe = async (req, res) => {
+  const { email, favRecipes } = req.body;
+  try {
+    const user = await User.findOneAndUpdate({ email }, { favRecipes }  );
+    res.send({ ok: true});
+  } catch (error) {
+    res.json({ ok: false, error });
+  }
+};
+
+const getFavRecipes = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    res.send({ ok: true, favRecipes: user.favRecipes   });
+  } catch (error) {
+    res.json({ ok: false, error });
+  }
+};
+
+ const deleteFavRecipe = async (req, res) => {
+    const { email, favRecipes } = req.body;
+    try {
+      const user = await User.findOneAndUpdate({ email }, { favRecipes }  );
+      res.send({ ok: true});
+    } catch (error) {
+      res.json({ ok: false, error });
+    }
+  }
 
 
 
-module.exports = { register, login, verify_token};
+module.exports = { register, login, verify_token, addFavRecipe, getFavRecipes, deleteFavRecipe};
 
 

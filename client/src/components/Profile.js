@@ -1,7 +1,12 @@
 import React from 'react';
 
-function Profile({ user, favRecipes }) {
+function Profile({ user, favRecipes, deleteFavRecipeFromDB }) {
   console.log(favRecipes);
+
+  /* let handleDeleteRecipe = (recipe) => {
+    console.log("Clicked recipe:", recipe);
+
+  }; */
   return (
     <div className="profile">
       <h1>Profile Page</h1>
@@ -12,6 +17,9 @@ function Profile({ user, favRecipes }) {
             <h3>{recipe.label}</h3>
             <img src={recipe.image} alt={recipe.label} />
             <p>{recipe.calories}</p>
+            <button onClick={() => window.open(recipe.url)}><a href={recipe.viewRecipe}>View Recipe</a></button>
+            <button onClick={(e) => deleteFavRecipeFromDB(e ,user.email, favRecipes)}>Delete from favourites</button>
+            
           </div>
         ))}
       </div>

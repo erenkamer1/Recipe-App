@@ -25,7 +25,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
-  const [favRecipes, setFavRecipes] = useState([])
+  const [favRecipes, setFavRecipes] = useState(JSON.parse(localStorage.getItem("favRecipes")) || []);
 
   useEffect(() => {
     const verify_token = async () => {
@@ -44,6 +44,50 @@ function App() {
     verify_token();
   }, [token]);
   
+  
+  const getFavRecipes  = async (email) => {
+    try {
+      const response = await axios.post(`${URL}/users/getFavRecipes`, {email});
+      console.log(response.data)
+      setFavRecipes(response.data.favRecipes)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const addFavRecipeToDB = async (email, favRecipes) => {
+    try {
+      const response = await axios.post(`${URL}/users/addFavRecipe`, {email, favRecipes});
+      console.log(response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const deleteFavRecipe = async (email, favRecipes) => {
+    try {
+      const response = await axios.post(`${URL}/users/deleteFavRecipe`, {email, favRecipes});
+      console.log(response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const deleteFavRecipeFromDB = async (e) => {
+    e.preventDefault();
+  
+    const recipeData = {
+      label: e.target.closest("div").querySelector("h3").textContent,
+      image: e.target.closest("div").querySelector("img").getAttribute("src"),
+      calories: e.target.closest("div").querySelector("p").textContent,
+    };
+  
+    setFavRecipes(favRecipes.filter((recipe) => recipe.label !== recipeData.label));
+    deleteFavRecipe(user.email, favRecipes.filter((recipe) => recipe.label !== recipeData.label));
+    alert("Recipe deleted from favourites");
+    console.log(favRecipes);
+  };
+  
 
   const login = (token) => {
     debugger
@@ -55,6 +99,7 @@ function App() {
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("user", JSON.stringify(user));
     setIsLoggedIn(true);
+    getFavRecipes(user.email)
   };
   
   const logout = () => {
@@ -71,6 +116,7 @@ function App() {
         calories: e.target.closest("div").querySelector("p").textContent
     } 
     setFavRecipes([...favRecipes , recipeData])
+    addFavRecipeToDB(user.email, [...favRecipes , recipeData])
     console.log(favRecipes)
     alert("Recipe added to favourites")
 }
@@ -107,7 +153,7 @@ function App() {
         />
         <Route path="/explore" element={<Explore  favRecipes={favRecipes} setFavRecipes={setFavRecipes} favClick={favClick}/>} />
         <Route path="/explore/:category" element={<Explore favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>} />
-        <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile logout={logout} user={user} favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>)} />
+        <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile logout={logout} user={user} favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes} deleteFavRecipeFromDB={deleteFavRecipeFromDB}/>)} />
         <Route path="/shopping-list" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ShoppingList user={user} />)} />
         <Route path="/home/:recipe" element={<SingleRecipe />} />
       </Routes>
