@@ -45,7 +45,7 @@ function App() {
   }, [token]);
   
   
-  const getFavRecipes  = async (email) => {
+  const getFavRecipesFromDB  = async (email) => {
     try {
       const response = await axios.post(`${URL}/users/getFavRecipes`, {email});
       console.log(response.data)
@@ -55,39 +55,58 @@ function App() {
     }
   }
 
-  const addFavRecipeToDB = async (email, favRecipes) => {
+ /*  const addFavRecipeToDB = async (email, favRecipes) => {
     try {
-      const response = await axios.post(`${URL}/users/addFavRecipe`, {email, favRecipes});
+      const response = await axios.post(`${URL}/users/favRecipes/add`, {email, favRecipes});
+      console.log(response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  } */
+
+  const deleteFavRecipeFromDB = async (email, favRecipes) => {
+    try {
+      const response = await axios.post(`${URL}/deleteFavRecipe`, {email, favRecipes});
       console.log(response.data)
     } catch (error) {
       console.log(error);
     }
   }
 
-  const deleteFavRecipe = async (email, favRecipes) => {
-    try {
-      const response = await axios.post(`${URL}/users/deleteFavRecipe`, {email, favRecipes});
-      console.log(response.data)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const deleteFavRecipeFromDB = async (e) => {
+  const deleteFavRecipe = async (e) => {
     e.preventDefault();
-  
+
     const recipeData = {
-      label: e.target.closest("div").querySelector("h3").textContent,
-      image: e.target.closest("div").querySelector("img").getAttribute("src"),
-      calories: e.target.closest("div").querySelector("p").textContent,
+        label: e.target.closest("div").querySelector("h3").textContent
     };
+    console.log(recipeData)
+    let idx = favRecipes.findIndex(recipe => 
+        recipe.label === recipeData.label 
+    );
+
+    if (idx !== -1) {
+        let newFavRecipes = favRecipes.slice();
+        newFavRecipes.splice(idx, 1);
+        
+        await deleteFavRecipeFromDB(user.email, newFavRecipes);
+        setFavRecipes(newFavRecipes);
+        alert("Recipe deleted from favourites");
+    } else {
+        alert("Recipe not found in favourites");
+    }
+};
+
   
-    setFavRecipes(favRecipes.filter((recipe) => recipe.label !== recipeData.label));
-    deleteFavRecipe(user.email, favRecipes.filter((recipe) => recipe.label !== recipeData.label));
-    alert("Recipe deleted from favourites");
-    console.log(favRecipes);
+  const deleteAllFavRecipes = async () => {
+    try {
+      const emptyArray = [];
+      await deleteFavRecipeFromDB(user.email, emptyArray);
+      setFavRecipes(emptyArray);
+      alert("All recipes deleted from favourites");
+    } catch (error) {
+      console.log(error);
+    }
   };
-  
 
   const login = (token) => {
     debugger
@@ -99,7 +118,7 @@ function App() {
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("user", JSON.stringify(user));
     setIsLoggedIn(true);
-    getFavRecipes(user.email)
+    getFavRecipesFromDB(user.email)
   };
   
   const logout = () => {
@@ -108,25 +127,36 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const favClick = async (e) => {
-     e.preventDefault(); 
-     const recipeData = {
-        label: e.target.closest("div").querySelector("h2").textContent,
-        image: e.target.closest("div").querySelector("img").getAttribute("src"),
-        calories: e.target.closest("div").querySelector("p").textContent
-    } 
-    setFavRecipes([...favRecipes , recipeData])
-    addFavRecipeToDB(user.email, [...favRecipes , recipeData])
-    console.log(favRecipes)
-    alert("Recipe added to favourites")
-}
+  /* const favClick = async (e) => {
+    e.preventDefault(); 
+    const recipeData = {
+      label: e.target.closest("div").querySelector("h2").textContent,
+      image: e.target.closest("div").querySelector("img").getAttribute("src"),
+      calories: e.target.closest("div").querySelector("p").textContent
+    };
+  
+    // Ensure favRecipes is an array before spreading it
+    const currentFavRecipes = Array.isArray(favRecipes) ? favRecipes : [];
+  
+    const newFavRecipes = [...currentFavRecipes, recipeData];
+    setFavRecipes(newFavRecipes);
+  
+    try {
+      await addFavRecipeToDB(user.email, newFavRecipes);
+      console.log(newFavRecipes);
+      alert("Recipe added to favourites");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to add recipe to favourites");
+    }
+  }; */
 
   return (
     <Router>
       <Navbar isLoggedIn={isLoggedIn} />
  
       <Routes>
-        <Route path="/" element={<Home favClick={favClick}/>} />
+        <Route path="/" element={<Home /* favClick={favClick} *//>} />
         <Route
           path="/login"
           element={
@@ -151,9 +181,9 @@ function App() {
             )
           }
         />
-        <Route path="/explore" element={<Explore  favRecipes={favRecipes} setFavRecipes={setFavRecipes} favClick={favClick}/>} />
-        <Route path="/explore/:category" element={<Explore favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes}/>} />
-        <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile logout={logout} user={user} favClick={favClick} favRecipes={favRecipes} setFavRecipes={setFavRecipes} deleteFavRecipeFromDB={deleteFavRecipeFromDB}/>)} />
+        <Route path="/explore" element={<Explore user={user} favRecipes={favRecipes} setFavRecipes={setFavRecipes} /* favClick={favClick} *//>} />
+        <Route path="/explore/:category" element={<Explore /* favClick={favClick} */ favRecipes={favRecipes} setFavRecipes={setFavRecipes} user={user}/>} />
+        <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile deleteFavRecipeFromDB={deleteFavRecipeFromDB} deleteAllFavRecipes={deleteAllFavRecipes} logout={logout} user={user} /* favClick={favClick} */ favRecipes={favRecipes} setFavRecipes={setFavRecipes} deleteFavRecipe={deleteFavRecipe}/>)} />
         <Route path="/shopping-list" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ShoppingList user={user} />)} />
         <Route path="/home/:recipe" element={<SingleRecipe />} />
       </Routes>

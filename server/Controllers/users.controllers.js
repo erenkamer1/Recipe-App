@@ -92,20 +92,21 @@ const addFavRecipe = async (req, res) => {
 const getFavRecipes = async (req, res) => {
   const { email } = req.body;
   try {
-    const user = await User.findOne({ email });
-    res.send({ ok: true, favRecipes: user.favRecipes   });
+      const user = await User.findOne({ email });
+      res.send({ ok: true, favRecipes: user.favRecipes || [] });
   } catch (error) {
-    res.json({ ok: false, error });
+      res.json({ ok: false, error });
   }
 };
+
 
  const deleteFavRecipe = async (req, res) => {
     const { email, favRecipes } = req.body;
     try {
       const user = await User.findOneAndUpdate({ email }, { favRecipes }  );
-      res.send({ ok: true});
+      res.send({ ok: true, data: user.favRecipes });
     } catch (error) {
-      res.json({ ok: false, error });
+      res.json({ ok: false, error: " error ==>> ", error });
     }
   }
 
