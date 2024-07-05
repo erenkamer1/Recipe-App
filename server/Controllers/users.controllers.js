@@ -120,5 +120,17 @@ const getShoppingList = async (req, res) => {
     res.json({ ok: false, error });
   }
 };
+// controllers/users.controllers.js
 
-module.exports = { register, login, verify_token, addFavRecipe, getFavRecipes, deleteFavRecipe, saveShoppingList, getShoppingList };
+const deleteShoppingList = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOneAndUpdate({ email }, { shoppingList: [] }, { new: true });
+    res.json({ ok: true, message: 'Shopping list deleted successfully', shoppingList: user.shoppingList });
+  } catch (error) {
+    console.error('Error deleting shopping list:', error);
+    res.json({ ok: false, error });
+  }
+};
+
+module.exports = { register, login, verify_token, addFavRecipe, getFavRecipes, deleteFavRecipe, saveShoppingList, getShoppingList, deleteShoppingList };

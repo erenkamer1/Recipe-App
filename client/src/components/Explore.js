@@ -24,7 +24,9 @@ const Explore = ({user, favRecipes, setFavRecipes}) =>{
                     params: {
                         q: searchQuery,
                         app_id: APP_ID,
-                        app_key: APP_KEY
+                        app_key: APP_KEY,
+                        from: 0,
+                        to: 20
                     }});
                     console.log(response.data);
                     setRecipes(response.data.hits); 

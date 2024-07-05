@@ -126,7 +126,7 @@ function App() {
     localStorage.setItem("user", JSON.stringify(user));
     setIsLoggedIn(true);
     getFavRecipesFromDB(user.email);
-    getShoppingListFromDB(user.email);
+    /* getShoppingListFromDB(user.email); */
   };
 
   const logout = () => {
@@ -159,7 +159,7 @@ function App() {
         <Route path="/explore/:category" element={<Explore  favRecipes={favRecipes} setFavRecipes={setFavRecipes} user={user} />} />
         <Route path="/profile" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<Profile deleteAllFavRecipes={deleteAllFavRecipes} deleteFavRecipeFromDB={deleteFavRecipeFromDB}  logout={logout} user={user}  favRecipes={favRecipes} setFavRecipes={setFavRecipes} deleteFavRecipe={deleteFavRecipe}/>)}/>
         <Route path="/shopping-list" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ShoppingList user={user} />)} />
-        <Route path="/viewSavedShoppingList" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ViewSavedShoppingList user={user} shoppingList={shoppingList} />)} />
+        <Route path="/viewSavedShoppingList" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ViewSavedShoppingList user={user} shoppingList={shoppingList} setShoppingList={setShoppingList} />)} />
         <Route path="/home/:recipe" element={<SingleRecipe />} />
         <Route path="/profile/:recipe" element={<ProfileSingleRecipe />} />
       </Routes>

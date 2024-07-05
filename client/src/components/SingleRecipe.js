@@ -31,7 +31,7 @@ function SingleRecipe() {
       </div>
       <div className="recipe-details">
         <div className="recipe-header">
-          <p>Calories: {recipeData.calories} Kcal</p>
+          <p>Calories: {recipeData.calories.toFixed(2)} Kcal</p>
           <a href={recipeData.url} className="view-recipe">View Full Detailed Recipe</a>
         </div>
         <h2>Ingredients</h2>

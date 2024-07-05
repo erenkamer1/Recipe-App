@@ -38,8 +38,8 @@ function Profile({ user, logout, deleteFavRecipeFromDB, favRecipes, setFavRecipe
         <h3 onClick={() => handleViewRecipeClick(recipe)}>{recipe.label}</h3>
         <img src={recipe.image} alt={recipe.label} onClick={() => handleViewRecipeClick(recipe)}/>
         <p>Calories: {recipe.calories.toFixed(2)} Kcal</p>
-        <button onClick={() => handleViewRecipeClick(recipe)}>View Recipe</button>
-        <button onClick={(e) => deleteFavRecipe(e, recipe)}>Delete from favourites</button>
+        <button onClick={() => handleViewRecipeClick(recipe)} className='view-recipe-profile'>View Recipe</button>
+        <button onClick={(e) => deleteFavRecipe(e, recipe)} className='delete-recipe-profile'>Delete from favourites</button>
       </div>
     )}
   </div>

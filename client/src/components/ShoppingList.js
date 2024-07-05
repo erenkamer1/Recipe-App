@@ -24,15 +24,31 @@ function ShoppingList({ user }) {
 
   const saveShoppingList = async () => {
     try {
-      const responseData = await addShoppingListToDB(user.email, list);
+      if (list.length === 0) {
+        throw new Error("Cannot save empty shopping list. Add items before saving.");
+      }
+      if (list.some(item => !item.item.trim())) {
+        throw new Error("Item name cannot be empty. Please provide a name for all items.");
+      }
+      // Retrieve existing shopping list from localStorage
+      let existingList = JSON.parse(localStorage.getItem("shoppingList")) || [];
+  
+      // Merge existing list with the new list
+      const mergedList = [...existingList, ...list];
+  
+      // Save merged list to localStorage
+      localStorage.setItem("shoppingList", JSON.stringify(mergedList));
+      const responseData = await addShoppingListToDB(user.email, mergedList);
       console.log(responseData);
-      console.log(list)
-      localStorage.setItem("shoppingList", JSON.stringify(list));
-      alert("Shopping list saved");
+      alert("Shopping list saved successfully!");
     } catch (error) {
-      console.log(error);
+      console.error("Error saving shopping list:", error);
+      alert(error.message); 
     }
   };
+  
+  
+  
 
   const handleSeeSavedLists = () => {
     navigate("/viewSavedShoppingList");
@@ -141,7 +157,7 @@ function ShoppingList({ user }) {
       </div>
       <button onClick={saveShoppingList} className="save-button">Save</button>
       <div>
-        <button onClick={handleSeeSavedLists}>See saved lists</button>
+        <button onClick={handleSeeSavedLists} className="see-button">See saved lists</button>
       </div>
     </div>
   );
