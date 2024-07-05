@@ -1,14 +1,9 @@
 const User = require("../Models/users.models");
-const bcrypt = require("bcryptjs"); // https://github.com/dcodeIO/bcrypt.js#readme
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
 const jwt_secret = process.env.JWT_SECRET;
-// the client is sending this body object
-//  {
-//     email: form.email,
-//     password: form.password,
-//     password2: form.password2
-//  }
+
 const register = async (req, res) => {
   const { email, password, password2 } = req.body;
   if (!email || !password || !password2) {
@@ -24,9 +19,7 @@ const register = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) return res.json({ ok: false, message: "User exists!" });
 
-    // Generate a salt
     const salt = bcrypt.genSaltSync(10);
-    // Hash the password with the salt
     const hash = bcrypt.hashSync(password, salt);
 
     const newUser = {
@@ -40,11 +33,7 @@ const register = async (req, res) => {
     res.json({ ok: false, error });
   }
 };
-// the client is sending this body object
-//  {
-//     email: form.email,
-//     password: form.password
-//  }
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -70,7 +59,6 @@ const login = async (req, res) => {
 };
 
 const verify_token = (req, res) => {
-  console.log(req.headers.authorization);
   const token = req.headers.authorization;
   jwt.verify(token, jwt_secret, (err, succ) => {
     err
@@ -82,8 +70,8 @@ const verify_token = (req, res) => {
 const addFavRecipe = async (req, res) => {
   const { email, favRecipes } = req.body;
   try {
-    const user = await User.findOneAndUpdate({ email }, { favRecipes }  );
-    res.send({ ok: true});
+    const user = await User.findOneAndUpdate({ email }, { favRecipes });
+    res.send({ ok: true });
   } catch (error) {
     res.json({ ok: false, error });
   }
@@ -92,46 +80,45 @@ const addFavRecipe = async (req, res) => {
 const getFavRecipes = async (req, res) => {
   const { email } = req.body;
   try {
-      const user = await User.findOne({ email });
-      res.send({ ok: true, favRecipes: user.favRecipes || [] });
+    const user = await User.findOne({ email });
+    res.send({ ok: true, favRecipes: user.favRecipes || [] });
   } catch (error) {
-      res.json({ ok: false, error });
+    res.json({ ok: false, error });
   }
 };
 
-
- const deleteFavRecipe = async (req, res) => {
-    const { email, favRecipes } = req.body;
-    try {
-      const user = await User.findOneAndUpdate({ email }, { favRecipes }  );
-      res.send({ ok: true, data: user.favRecipes });
-    } catch (error) {
-      res.json({ ok: false, error: " error ==>> ", error });
-    }
+const deleteFavRecipe = async (req, res) => {
+  const { email, favRecipes } = req.body;
+  try {
+    const user = await User.findOneAndUpdate({ email }, { favRecipes });
+    res.send({ ok: true, data: user.favRecipes });
+  } catch (error) {
+    res.json({ ok: false, error: " error ==>> ", error });
   }
+};
 
-  const saveShoppingList = (req, res) => {
-    const { email, shoppingList } = req.body;
-    try {
-      const user = User.findOneAndUpdate({ email }, { shoppingList }  );
-      res.send({ ok: true});
-    } catch (error) {
-      res.json({ ok: false, error });
-    }
+const saveShoppingList = async (req, res) => {
+  const { email, shoppingList } = req.body;
+  try {
+    console.log("Saving shopping list for:", email, shoppingList);
+    const user = await User.findOneAndUpdate({ email }, { shoppingList });
+    res.send({ ok: true, shoppingList });
+  } catch (error) {
+    console.log("Error saving shopping list:", error);
+    res.json({ ok: false, error });
   }
+};
 
-  const getShoppingList = (req, res) => {
-    const { email } = req.body;
-    try {
-        const user = User.findOne({ email });
-        res.send({ ok: true, shoppingList: user.shoppingList || [] });
-    } catch (error) {
-        res.json({ ok: false, error });
-    }
+const getShoppingList = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    console.log("Retrieved shopping list for:", email, user.shoppingList);
+    res.send({ ok: true, shoppingList: user.shoppingList || [] });
+  } catch (error) {
+    console.log("Error retrieving shopping list:", error);
+    res.json({ ok: false, error });
   }
+};
 
-
-
-module.exports = { register, login, verify_token, addFavRecipe, getFavRecipes, deleteFavRecipe, saveShoppingList, getShoppingList};
-
-
+module.exports = { register, login, verify_token, addFavRecipe, getFavRecipes, deleteFavRecipe, saveShoppingList, getShoppingList };

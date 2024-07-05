@@ -4,7 +4,7 @@ import "../App.css";
 import axios from "axios";
 import { URL } from "../config";
 
-function ShoppingList({user}) {
+function ShoppingList({ user }) {
   const [itemInput, setItemInput] = useState("");
   const [pieceInput, setPieceInput] = useState("");
   const [kgInput, setKgInput] = useState("");
@@ -14,7 +14,7 @@ function ShoppingList({user}) {
 
   const addShoppingListToDB = async (email, shoppingList) => {
     try {
-      const response = await axios.post(`${URL}/users/shoppingList/add`, { email, shoppingList });
+      const response = await axios.post(`${URL}/users/shoppingList/save`, { email, shoppingList });
       return response.data;
     } catch (error) {
       console.log(error);
@@ -26,31 +26,34 @@ function ShoppingList({user}) {
     try {
       const responseData = await addShoppingListToDB(user.email, list);
       console.log(responseData);
+      console.log(list)
+      localStorage.setItem("shoppingList", JSON.stringify(list));
       alert("Shopping list saved");
     } catch (error) {
       console.log(error);
     }
   };
 
-const handleSeeSavedLists = () => {
-  navigate("/viewSavedShoppingList", {state: {list}});
-  console.log(list)
-};
+  const handleSeeSavedLists = () => {
+    navigate("/viewSavedShoppingList");
+  };
 
-
-  let handleChangeItem = (e) => {
+  const handleChangeItem = (e) => {
     e.preventDefault();
     setItemInput(e.target.value);
   };
-  let handleChangePiece = (e) => {
+
+  const handleChangePiece = (e) => {
     e.preventDefault();
     setPieceInput(e.target.value);
   };
-  let handleChangeKg = (e) => {
+
+  const handleChangeKg = (e) => {
     e.preventDefault();
     setKgInput(e.target.value);
   };
-  let handleSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setList([...list, { item: itemInput, piece: pieceInput, kg: kgInput, completed: false }]);
     setItemInput("");
@@ -85,7 +88,6 @@ const handleSeeSavedLists = () => {
       }
     };
 
-    
     return (
       <div key={idx} className="list-item">
         <li className={`shopping-list-render ${ele.completed ? "completed" : ""}`}>
@@ -102,7 +104,6 @@ const handleSeeSavedLists = () => {
             Delete
           </button>
         </div>
-        
       </div>
     );
   });
@@ -140,7 +141,7 @@ const handleSeeSavedLists = () => {
       </div>
       <button onClick={saveShoppingList} className="save-button">Save</button>
       <div>
-      <button onClick={handleSeeSavedLists}>See saved lists</button>
+        <button onClick={handleSeeSavedLists}>See saved lists</button>
       </div>
     </div>
   );
