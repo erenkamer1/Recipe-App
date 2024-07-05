@@ -32,8 +32,8 @@ function ShoppingList({user}) {
     }
   };
 
-const handleSeeSavedLists = (item, idx, ele, piece) => {
-  navigate("/viewSavedShoppingList", {state: {list: {item, idx, ele, piece}}});
+const handleSeeSavedLists = () => {
+  navigate("/viewSavedShoppingList", {state: {list}});
   console.log(list)
 };
 
@@ -102,7 +102,7 @@ const handleSeeSavedLists = (item, idx, ele, piece) => {
             Delete
           </button>
         </div>
-        <button onClick={handleSeeSavedLists(item, idx, ele, piece)}>See saved lists</button>
+        
       </div>
     );
   });
@@ -140,7 +140,7 @@ const handleSeeSavedLists = (item, idx, ele, piece) => {
       </div>
       <button onClick={saveShoppingList} className="save-button">Save</button>
       <div>
-        
+      <button onClick={handleSeeSavedLists}>See saved lists</button>
       </div>
     </div>
   );
