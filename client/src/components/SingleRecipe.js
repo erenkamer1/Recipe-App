@@ -7,35 +7,37 @@ function SingleRecipe() {
   const [recipe, setRecipe] = useState(location.state ? location.state.recipe : null);
   console.log("Received recipe:", recipe);
 
-  if (!recipe) {
+  if (!recipe || !recipe.recipe) {
     return <div>No recipe data available.</div>;
   }
 
-  let ingredients = recipe.recipe.ingredients.map((item, idx) => (
+  const recipeData = recipe.recipe;
+
+  let ingredients = recipeData.ingredients ? recipeData.ingredients.map((item, idx) => (
     <li key={idx}>
       {item.text}: {item.quantity} {item.measure}
     </li>
-  ));
+  )) : [];
 
-  let healthLabels = recipe.recipe.healthLabels.map((item, idx) => (
+  let healthLabels = recipeData.healthLabels ? recipeData.healthLabels.map((item, idx) => (
     <li key={idx}>{item}</li>
-  ));
+  )) : [];
 
   return (
     <div className="single-recipe-container">
       <div className="single-recipe-header">
-        <h1>{recipe.recipe.label}</h1>
-        <img src={recipe.recipe.image} alt={recipe.recipe.label} />
+        <h1>{recipeData.label}</h1>
+        <img src={recipeData.image} alt={recipeData.label} />
       </div>
       <div className="recipe-details">
         <div className="recipe-header">
-          <p>Calories: {recipe.recipe.calories.toFixed(2)} Kcal</p>
-          <a href={recipe.recipe.url} className="view-recipe">View Full Detailed Recipe</a>
+          <p>Calories: {recipeData.calories} Kcal</p>
+          <a href={recipeData.url} className="view-recipe">View Full Detailed Recipe</a>
         </div>
         <h2>Ingredients</h2>
         <ul className="ingredients">{ingredients}</ul>
         <h2>Meal Type</h2>
-        <p>{recipe.recipe.mealType.join(", ")}</p>
+        <p>{recipeData.mealType.join(", ")}</p>
         <h2>Health Labels</h2>
         <ul className="recipe-labels">{healthLabels}</ul>
       </div>

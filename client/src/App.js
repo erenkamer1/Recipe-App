@@ -11,7 +11,6 @@ import {
 import Home from "./containers/Home.js";
 import Login from "./containers/Login.js";
 import Register from "./containers/Register.js";
-import SecretPage from "./containers/SecretPage.js";
 import Navbar from "./components/Navbar.js";
 import Explore from "./components/Explore.js"
 import { URL } from "./config.js";
@@ -19,6 +18,8 @@ import * as jose from "jose";
 import Profile from "./components/Profile.js";
 import ShoppingList from "./components/ShoppingList.js";
 import SingleRecipe from "./components/SingleRecipe.js";
+import ProfileSingleRecipe from "./components/ProfileSingleRecipe.js";
+import ViewSavedShoppingList from "./components/ViewSavedShoppingList.js";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
   const [favRecipes, setFavRecipes] = useState(JSON.parse(localStorage.getItem("favRecipes")) || []);
+  
 
   useEffect(() => {
     const verify_token = async () => {
@@ -44,6 +46,9 @@ function App() {
     verify_token();
   }, [token]);
   
+
+
+
   
   const getFavRecipesFromDB  = async (email) => {
     try {
@@ -54,19 +59,20 @@ function App() {
       console.log(error);
     }
   }
-
- /*  const addFavRecipeToDB = async (email, favRecipes) => {
+  const getShoppingListFromDB  = async (email) => {
     try {
-      const response = await axios.post(`${URL}/users/favRecipes/add`, {email, favRecipes});
+      const response = await axios.post(`${URL}/users/shoppingList/get`, {email});
       console.log(response.data)
+      setFavRecipes(response.data.shoppingList)
     } catch (error) {
       console.log(error);
     }
-  } */
+  }
 
-  const deleteFavRecipeFromDB = async (email, favRecipes) => {
+
+  const deleteFavRecipeFromDB = async (email, newFavRecipes) => {
     try {
-      const response = await axios.post(`${URL}/deleteFavRecipe`, {email, favRecipes});
+      const response = await axios.post(`${URL}/users/deleteFavRecipe`, {email, favRecipes: newFavRecipes});
       console.log(response.data)
     } catch (error) {
       console.log(error);
@@ -90,6 +96,7 @@ function App() {
         
         await deleteFavRecipeFromDB(user.email, newFavRecipes);
         setFavRecipes(newFavRecipes);
+        localStorage.setItem("favRecipes", JSON.stringify(newFavRecipes));
         alert("Recipe deleted from favourites");
     } else {
         alert("Recipe not found in favourites");
@@ -119,6 +126,7 @@ function App() {
     localStorage.setItem("user", JSON.stringify(user));
     setIsLoggedIn(true);
     getFavRecipesFromDB(user.email)
+    getShoppingListFromDB(user.email)
   };
   
   const logout = () => {
@@ -127,41 +135,18 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  /* const favClick = async (e) => {
-    e.preventDefault(); 
-    const recipeData = {
-      label: e.target.closest("div").querySelector("h2").textContent,
-      image: e.target.closest("div").querySelector("img").getAttribute("src"),
-      calories: e.target.closest("div").querySelector("p").textContent
-    };
-  
-    // Ensure favRecipes is an array before spreading it
-    const currentFavRecipes = Array.isArray(favRecipes) ? favRecipes : [];
-  
-    const newFavRecipes = [...currentFavRecipes, recipeData];
-    setFavRecipes(newFavRecipes);
-  
-    try {
-      await addFavRecipeToDB(user.email, newFavRecipes);
-      console.log(newFavRecipes);
-      alert("Recipe added to favourites");
-    } catch (error) {
-      console.error(error);
-      alert("Failed to add recipe to favourites");
-    }
-  }; */
-
+ 
   return (
     <Router>
       <Navbar isLoggedIn={isLoggedIn} />
  
       <Routes>
-        <Route path="/" element={<Home /* favClick={favClick} *//>} />
+        <Route path="/" element={<Home />} />
         <Route
           path="/login"
           element={
             isLoggedIn ? (
-              <Navigate to="/secret-page" />
+              <Navigate to="/profile" />
             ) : (
               <Login login={login} />
             )
@@ -169,23 +154,15 @@ function App() {
         />
         <Route
           path="/register"
-          element={isLoggedIn ? <Navigate to="/secret-page" /> : <Register />}
+          element={isLoggedIn ? <Navigate to="/profile" /> : <Register />}
         />
-        <Route
-          path="/secret-page"
-          element={
-            !isLoggedIn ? (
-              <Navigate to="/" />
-            ) : (
-              <SecretPage logout={logout} user={user} />
-            )
-          }
-        />
-        <Route path="/explore" element={<Explore user={user} favRecipes={favRecipes} setFavRecipes={setFavRecipes} /* favClick={favClick} *//>} />
-        <Route path="/explore/:category" element={<Explore /* favClick={favClick} */ favRecipes={favRecipes} setFavRecipes={setFavRecipes} user={user}/>} />
-        <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile deleteFavRecipeFromDB={deleteFavRecipeFromDB} deleteAllFavRecipes={deleteAllFavRecipes} logout={logout} user={user} /* favClick={favClick} */ favRecipes={favRecipes} setFavRecipes={setFavRecipes} deleteFavRecipe={deleteFavRecipe}/>)} />
+        <Route path="/explore" element={<Explore user={user} favRecipes={favRecipes} setFavRecipes={setFavRecipes} />} />
+        <Route path="/explore/:category" element={<Explore  favRecipes={favRecipes} setFavRecipes={setFavRecipes} user={user}/>} />
+        <Route path="/profile" element={ !isLoggedIn ? (<Navigate to={"/"} />) : (<Profile deleteAllFavRecipes={deleteAllFavRecipes} deleteFavRecipeFromDB={deleteFavRecipeFromDB}  logout={logout} user={user}  favRecipes={favRecipes} setFavRecipes={setFavRecipes} deleteFavRecipe={deleteFavRecipe}/>)} />
         <Route path="/shopping-list" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ShoppingList user={user} />)} />
+        <Route path="/viewSavedShoppingList" element={!isLoggedIn ? (<Navigate to={"/"} />) : (<ViewSavedShoppingList user={user} />)} />
         <Route path="/home/:recipe" element={<SingleRecipe />} />
+        <Route path="/profile/:recipe" element={<ProfileSingleRecipe />} />
       </Routes>
     </Router>
   );

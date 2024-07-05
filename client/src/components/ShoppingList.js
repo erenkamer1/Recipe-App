@@ -1,11 +1,42 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
+import axios from "axios";
+import { URL } from "../config";
 
-function ShoppingList(props) {
+function ShoppingList({user}) {
   const [itemInput, setItemInput] = useState("");
   const [pieceInput, setPieceInput] = useState("");
   const [kgInput, setKgInput] = useState("");
   const [list, setList] = useState([]);
+
+  const navigate = useNavigate();
+
+  const addShoppingListToDB = async (email, shoppingList) => {
+    try {
+      const response = await axios.post(`${URL}/users/shoppingList/add`, { email, shoppingList });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  const saveShoppingList = async () => {
+    try {
+      const responseData = await addShoppingListToDB(user.email, list);
+      console.log(responseData);
+      alert("Shopping list saved");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+const handleSeeSavedLists = (item, idx, ele, piece) => {
+  navigate("/viewSavedShoppingList", {state: {list: {item, idx, ele, piece}}});
+  console.log(list)
+};
+
 
   let handleChangeItem = (e) => {
     e.preventDefault();
@@ -54,6 +85,7 @@ function ShoppingList(props) {
       }
     };
 
+    
     return (
       <div key={idx} className="list-item">
         <li className={`shopping-list-render ${ele.completed ? "completed" : ""}`}>
@@ -70,13 +102,14 @@ function ShoppingList(props) {
             Delete
           </button>
         </div>
+        <button onClick={handleSeeSavedLists(item, idx, ele, piece)}>See saved lists</button>
       </div>
     );
   });
 
   return (
     <div className="shopping-list">
-      <h1>Shopping List for {props.user.email}</h1>
+      <h1>Shopping List for {user.email}</h1>
       <form onSubmit={handleSubmit} className="list-form">
         <div className="form-row">
           <input
@@ -104,6 +137,10 @@ function ShoppingList(props) {
       <div className="items_list">
         <h2>List</h2>
         <ul>{listRender}</ul>
+      </div>
+      <button onClick={saveShoppingList} className="save-button">Save</button>
+      <div>
+        
       </div>
     </div>
   );

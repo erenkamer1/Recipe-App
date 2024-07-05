@@ -11,7 +11,7 @@ const molePoblano = [
     {
         "recipe": {
             "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_1c68db894c1c453f83c7a8ca7c42746f",
-            "label": "Mole Poblano Recipe",
+            "label": "Mole Poblano",
             "image": "https://edamam-product-images.s3.amazonaws.com/web-img/1bb/1bbe594398b5d328219f802a8c638558.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJ3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQC0sxUPoDJAVru7XP1eNcoFYFFWtt0Fzp5KOLAk%2FrUd%2BwIhAKyt939Gvf2lJsuC9%2F%2FwrduJWgSIW6szajVs60WtFsjwKrkFCEYQABoMMTg3MDE3MTUwOTg2Igz02udOHtPMWneWJA0qlgWwIyqzhGl7PKXcBkGWqObTG0aXDaKYVv7MIGzrJyku5j56YWA%2BUvJkWNVdKtZFFxVQZxxImpdRLMPU4EeoaHI%2F2E%2BhlKhKx%2FV3WoJGvE0jBx%2BiHFH9XmDMX5lkA2f3aoSfNh65oVYSLZTnLmdtkR71Rs4lozoK1q%2Bf3PmQqV4nH68M1kPnn%2FNqaN8M4sZTwDw43CWIug7EDx1%2BXkn6nmRrNehYmDbwNAD8126HW8q1v%2Fpk2q2twGCDGLlRp%2B9SDULAGE22936X2m51P2eVMWOeWEKcyD2Ma6DCn1k4YLQxm4%2BVW%2BV3o%2F69CkAUUTzYsqkUFO%2BFU6LWzumUg1cuTO0h56FVzzlQTX8i6XdRe%2BhGuL1LsUy1FsJia7F5WOX2AaSs1sMP6amsnso4EmPWIaSS6wRWMjik6q0cjssOL6ud%2FBJ%2BJTWb1je5JP8t9BcUt8c3XE9%2FMGVPwa687x7qVWYNFKeyFZW83SqP2UDMtq31a0DFVMQF9W2Ew0VQ4PZK2G92aeNt5C4ryZKXkZKAkTiiC5tEiyxHg5KFAsQgg1S6JtpiHjkrnNCppGNgojGAyprKYgzSP4pslGmE8I3uF6nM0EyqDC41zrPZDHa8zSA%2FTy9HSStcq7PDtkPU%2FJbTwaWuCB6NZ0T2FmDDxZ6si8tnC8J1p0HAzWHa0Vdrzf099kOfXW5rWCoO8VndZhJL7TKISm%2BHro%2BB8frZMz15UVyHFTWZ960xxbDZnIyY5k5wCiMQyLhXj0bVw5jaIFc9R8dLAj1FRLj4wDnTTC1Yee4GsMpm9B7iB7orZc1Mz%2Bb7ZTrzKGsQs5eiGmQoGOwK4nrN6Ln3O8KTw%2FBW2P8iid7IozNy71fNqowspqG7grb9lATVlpfVhjCNz9CzBjqwASFWHiY8Rg131eIJzIFbw75%2FBHr8ipkGqR%2FHCXU16blsF1edTj37aRIlSru3d6PXSl3MaoSGgdp6aPJq6ve6d%2Bw55Bp3fvy5UOLzqKkRNxzyBrAspIAkF5IEXQjEAsNgc2z8mhoZDBT2S20MwYP3bU5rHDSAhbhLsy%2FsI%2FnHTin4%2FJf3DUztR4h6nBXduoxWMEElHsoxLMoEK5zIFTWLVuH7i1%2B9cCbFYP28zXQatx0s&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240620T142053Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFKS5Z3CBH%2F20240620%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=fc2f14b82c7726d33f2d6411b23eb8f6623aae80a955b2411372f012352472ed",
             "source": "Serious Eats",
             "url": "https://www.seriouseats.com/mole-poblano-recipe-how-to-make-mole",
@@ -7969,91 +7969,62 @@ const blackBeanStew = [
                 <h2 onClick={handleClick}>{molePoblano[0].recipe.label}</h2>
                 <img src={"/assets/BestRecipes/mole.jpg"} alt="mole poblano" onClick={handleClick}></img>
                 <p onClick={handleClick}>Calories: {molePoblano[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {molePoblano[0].recipe.label} recipes</button>  
             </div>
             <div className="best-recipe-cards" >
                 <h2 onClick={handleClick}>{sushi[0].recipe.label}</h2>
                 <img src={"/assets/BestRecipes/sushi.jpg"} alt="mole poblano" onClick={handleClick}></img>
                 <p onClick={handleClick}>Calories: {sushi[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {sushi[0].recipe.label} recipes</button>
             </div>
             <div className="best-recipe-cards"  >
                 <h2 onClick={handleClick}>{pekingDuck[0].recipe.label}</h2>
                 <img src={"/assets/BestRecipes/peking-duck.jpg"} alt="mole poblano" onClick={handleClick}></img>
                 <p onClick={handleClick}>Calories: {pekingDuck[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {pekingDuck[0].recipe.label} recipes</button>
             </div>
             <div className="best-recipe-cards" >           
                 <h2 onClick={handleClick}>{pizza[0].recipe.label}</h2>
                 <img onClick={handleClick} src={"/assets/BestRecipes/margarita.jpg"} alt="mole poblano" ></img>
                 <p onClick={handleClick}>Calories: {pizza[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {pizza[0].recipe.label} recipes</button>
             </div>
             <div className="best-recipe-cards" >
                 <h2 onClick={handleClick}>{cheeseburger[0].recipe.label}</h2>
                 <img onClick={handleClick} src={"/assets/BestRecipes/cheesebur.jpg"} alt="mole poblano" ></img>
                 <p onClick={handleClick}>Calories: {cheeseburger[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {cheeseburger[0].recipe.label} recipes</button>
             </div>
             <div className="best-recipe-cards" >
                 <h2 onClick={handleClick}>{coqAuVin[0].recipe.label}</h2>
                 <img onClick={handleClick} src={"/assets/BestRecipes/coq au vin.jpg"} alt="mole poblano" ></img>
                 <p onClick={handleClick}>Calories: {coqAuVin[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {coqAuVin[0].recipe.label} recipes</button> 
             </div>
             <div className="best-recipe-cards" >
                 <h2 onClick={handleClick}>{paella[0].recipe.label}</h2>
                 <img onClick={handleClick} src={"/assets/BestRecipes/paella.jpg"} alt="mole poblano" ></img>
                 <p onClick={handleClick}>Calories: {paella[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                
+                <button onClick={handleClick}>Click here to see {paella[0].recipe.label} recipes</button> 
             </div>
             <div className="best-recipe-cards" >
                 <h2 onClick={handleClick}>{tandooriChicken[0].recipe.label}</h2>
                 <img onClick={handleClick} src={"/assets/BestRecipes/tandoori.jpg"} alt="mole poblano" ></img>
                 <p onClick={handleClick}>Calories: {tandooriChicken[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {tandooriChicken[0].recipe.label} recipes</button>
             </div>
             <div className="best-recipe-cards" >
                 <h2 onClick={handleClick}>{sauerbraten[0].recipe.label}</h2>
                 <img onClick={handleClick} src={"/assets/BestRecipes/saurbraten.jpg"} alt="mole poblano" ></img>
                 <p onClick={handleClick}>Calories: {sauerbraten[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {sauerbraten[0].recipe.label} recipes</button> 
             </div>
             <div className="best-recipe-cards" >
                 <h2 onClick={handleClick}>{blackBeanStew[0].recipe.label}</h2>
                 <img onClick={handleClick} src={"/assets/BestRecipes/black bean.jpg"} alt="mole poblano" ></img>
                 <p onClick={handleClick}>Calories: {sauerbraten[0].recipe.calories.toFixed(2)} Kcal</p>
-                <section className='add-to-fav'>
-                <h2>Add to FAVS</h2>
-                <button><img className="star" src={"/assets/icons8-star-64.png"} onClick={favClick} />  </button>
-                </section>    
+                <button onClick={handleClick}>Click here to see {blackBeanStew[0].recipe.label} recipes</button> 
             </div>
         </div>
     )

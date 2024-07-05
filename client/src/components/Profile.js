@@ -2,38 +2,48 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 
 
-function Profile({ user, favRecipes, setFavRecipes, deleteFavRecipe, deleteAllFavRecipes, logout, deleteFavRecipeFromDB }) {
+
+function Profile({ user, logout, deleteFavRecipeFromDB, favRecipes, setFavRecipes, deleteFavRecipe, deleteAllFavRecipes}) {
   let navigate = useNavigate();
   console.log(favRecipes);
+
+  
+  const handleViewRecipeClick = (recipe) => {
+    console.log("Clicked recipe:", recipe);
+    navigate(`/profile/${recipe.label}`, { state: { recipe } });
+    console.log(recipe);
+    console.log(favRecipes);
+  };
+
   return (
     <div className="profile">
       <h1>Profile Page</h1>
       <button className='logout'
-    onClick={() => {
-      logout();
-      navigate("/");
-    }}
-    >
-    logout
-    </button>
+        onClick={() => {
+          logout();
+          navigate("/");
+        }}
+      >
+        logout
+      </button>
       <div className='favorites'>
-      <h2>Favourite Recipes {user.email}</h2>
-      <button onClick={deleteAllFavRecipes} className='delete-all-favs'>Delete all favourites</button>
+        <h2>Favourite Recipes {user.email}</h2>
+        <button onClick={() => deleteAllFavRecipes()} className='delete-all-favs'>Delete all favourites</button>
       </div>
       <div className="fav-recipes">
-        {favRecipes && favRecipes.map((recipe, idx) => (
-          <div key={idx}>
-            <h3>{recipe.label}</h3>
-            <img src={recipe.image} alt={recipe.label} />
-            <p>{recipe.calories}</p>
-            <button onClick={console.log(recipe)}>
-              <a href={recipe.viewRecipe}>View Recipe</a>
-            </button>
-            <button onClick={(e) => deleteFavRecipe(e, user.email, favRecipes)}>
-              Delete from favourites
-            </button>
-          </div>
-        ))}
+      {favRecipes && favRecipes.map((recipe, idx) => (
+  <div key={idx}>
+    {recipe && (
+      <div>
+        <h3 onClick={() => handleViewRecipeClick(recipe)}>{recipe.label}</h3>
+        <img src={recipe.image} alt={recipe.label} onClick={() => handleViewRecipeClick(recipe)}/>
+        <p>Calories: {recipe.calories.toFixed(2)} Kcal</p>
+        <button onClick={() => handleViewRecipeClick(recipe)}>View Recipe</button>
+        <button onClick={(e) => deleteFavRecipe(e, recipe)}>Delete from favourites</button>
+      </div>
+    )}
+  </div>
+))}
       </div>
     </div>
   );

@@ -110,8 +110,28 @@ const getFavRecipes = async (req, res) => {
     }
   }
 
+  const saveShoppingList = (req, res) => {
+    const { email, shoppingList } = req.body;
+    try {
+      const user = User.findOneAndUpdate({ email }, { shoppingList }  );
+      res.send({ ok: true});
+    } catch (error) {
+      res.json({ ok: false, error });
+    }
+  }
+
+  const getShoppingList = (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = User.findOne({ email });
+        res.send({ ok: true, shoppingList: user.shoppingList || [] });
+    } catch (error) {
+        res.json({ ok: false, error });
+    }
+  }
 
 
-module.exports = { register, login, verify_token, addFavRecipe, getFavRecipes, deleteFavRecipe};
+
+module.exports = { register, login, verify_token, addFavRecipe, getFavRecipes, deleteFavRecipe, saveShoppingList, getShoppingList};
 
 

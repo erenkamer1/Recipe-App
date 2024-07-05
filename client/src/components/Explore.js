@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {  APP_ID, APP_KEY } from '../config';
-import {  useLocation, useParams, useNavigate } from "react-router-dom";
+import {  APP_ID, APP_KEY, URL } from '../config';
+import {  useLocation, useNavigate } from "react-router-dom";
 
 
 
@@ -63,77 +63,27 @@ const addFavRecipeToDB = async (email, favRecipes) => {
     }
   }
 
- /*  const deleteFavRecipeFromDB = async (email, favRecipes) => {
-    try {
-      const response = await axios.post(`${URL}/deleteFavRecipe`, {email, favRecipes});
-      console.log(response.data)
-    } catch (error) {
-      console.log(error);
-    }
-  } */
-
-  /* const deleteFavRecipe = async (e) => {
-    e.preventDefault();
-
-    const recipeData = {
-        label: e.target.closest("div").querySelector("h3").textContent,
-        image: e.target.closest("div").querySelector("img").getAttribute("src"),
-        calories: e.target.closest("div").querySelector("p").textContent,
-    };
-    let idx = favRecipes.findIndex(recipe => 
-        recipe.label === recipeData.label && 
-        recipe.image === recipeData.image && 
-        recipe.calories === recipeData.calories
-    );
-
-    const recipeData = await {
-        label: recipe.label,
-        image: recipe.image,
-        calories: recipe.calories,
-        url: recipe.url,
-        viewRecipe: recipe.viewRecipe,
-    }
-
-    let idx = favRecipes.findIndex(recipe => recipe.label === recipeData.label && recipe.image === recipeData.image && recipe.calories === recipeData.calories);
-
-    if (idx !== -1) {
-        let newFavRecipes = favRecipes.slice();
-        newFavRecipes.splice(idx, 1);
-        
-        await deleteFavRecipeFromDB(user.email, newFavRecipes);
-        setFavRecipes(newFavRecipes);
-        alert("Recipe deleted from favourites");
-    } else {
-        alert("Recipe not found in favourites");
-    }
-}; */
-
-  
- /*  const deleteAllFavRecipes = async () => {
-    try {
-      const emptyArray = [];
-      await deleteFavRecipeFromDB(user.email, emptyArray);
-      setFavRecipes(emptyArray);
-      alert("All recipes deleted from favourites");
-    } catch (error) {
-      console.log(error);
-    }
-  }; */
 
   const favClick = async (recipe) => {
-    console.log(recipe) 
+    console.log("fava eklenen recipe===>>" , recipe);
     const recipeData = {
-        label: recipe.recipe.label,
-        image: recipe.recipe.image,
-        calories: recipe.recipe.calories,
-        url: recipe.recipe.url,
-        viewRecipe: recipe.recipe.viewRecipe,
-      };
-
+      label: recipe.recipe.label,
+      image: recipe.recipe.image,
+      calories: recipe.recipe.calories,
+      url: recipe.recipe.url,
+      ingredients: recipe.recipe.ingredients,
+      ingredientLines: recipe.recipe.ingredientLines,
+      healthLabels: recipe.recipe.healthLabels,
+      cuisineType: recipe.recipe.cuisineType,
+      dishType: recipe.recipe.dishType,
+      mealType: recipe.recipe.mealType
+    };
+  
     const currentFavRecipes = Array.isArray(favRecipes) ? favRecipes : [];
   
     const newFavRecipes = [...currentFavRecipes, recipeData];
     setFavRecipes(newFavRecipes);
+    localStorage.setItem("favRecipes", JSON.stringify(newFavRecipes));
   
     try {
       await addFavRecipeToDB(user.email, newFavRecipes);
@@ -163,7 +113,7 @@ const addFavRecipeToDB = async (email, favRecipes) => {
                         <p onClick={() => {handleViewRecipeClick(recipe)}}>Calories: {recipe.recipe.calories.toFixed(2)} Kcal</p>
                         <section className='add-to-fav'>
                         <h2>Add to FAVS</h2>
-                        <button><img className="star" src={"/assets/icons8-star-64.png"} /* onClick={favClick} */   onClick={() => favClick(recipe)} />  </button>
+                        <button><img className="star" src={"/assets/icons8-star-64.png"} alt="star"  onClick={() => favClick(recipe)} />  </button>
                         </section>                        
                     </div>
                 ))}

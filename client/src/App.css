@@ -436,17 +436,14 @@ single-recipe-header img {
   padding: 10px;
 }
 .best-recipe-cards button {
-  background-color: rgb(76, 175, 80);
-  padding: 0;
+  padding: 1em;
   border: none;
   border-radius: 0.25em;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s;
-  position: relative;
-  bottom: 3em;
-  height: 2em;
-  width: 2em;
+  margin-top: 1.25em;
+  background-color: rgb(100, 72, 41);
 }
 .favorites {
   display: inline-grid;

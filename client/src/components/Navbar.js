@@ -35,10 +35,6 @@ const Navbar = ({ isLoggedIn }) => {
         </>
       )}
 
-        <NavLink to="/secret-page"  style={({isActive}) => 
-        ( isActive ? activeLinkStyles : linkStyles)}>
-        Secret
-      </NavLink>
       
       <NavLink to="/explore"   style={({isActive}) => 
         ( isActive ? activeLinkStyles : linkStyles)}>
