@@ -11,7 +11,8 @@ function Profile({ user, logout, deleteFavRecipeFromDB, favRecipes, setFavRecipe
   const handleViewRecipeClick = (recipe) => {
     console.log("Clicked recipe:", recipe);
     navigate(`/profile/${recipe.label}`, { state: { recipe } });
-   
+    
+    
   };
 
   return (
@@ -26,7 +27,7 @@ function Profile({ user, logout, deleteFavRecipeFromDB, favRecipes, setFavRecipe
         logout
       </button>
       <div className='favorites'>
-        <h2>Favourite Recipes {user.email}</h2>
+        <h2>{ user === null ? "Favourite Recipes" : `Favourite Recipes ${user.email}` }</h2>
         <button onClick={() => deleteAllFavRecipes()} className='delete-all-favs'>Delete all favourites</button>
       </div>
       <div className="fav-recipes">

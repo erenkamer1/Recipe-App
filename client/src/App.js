@@ -28,8 +28,10 @@ function App() {
   const [favRecipes, setFavRecipes] = useState(JSON.parse(localStorage.getItem("favRecipes")) || []);
   const [shoppingList, setShoppingList] = useState([]);
   useEffect(() => {
+    localStorage.clear();
     const verify_token = async () => {
       try {
+        localStorage.clear();
         if (!token) {
           setIsLoggedIn(false);
         } else {
@@ -47,6 +49,7 @@ function App() {
   useEffect(() => {
     if (user && isLoggedIn) {
       getShoppingListFromDB(user.email);
+      localStorage.clear();
     }
   }, [user, isLoggedIn]);
 
