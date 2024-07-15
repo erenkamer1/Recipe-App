@@ -84,8 +84,8 @@ const addFavRecipeToDB = async (email, favRecipes) => {
     const currentFavRecipes = Array.isArray(favRecipes) ? favRecipes : [];
   
     const newFavRecipes = [...currentFavRecipes, recipeData];
-    setFavRecipes(newFavRecipes);
-    /* localStorage.setItem("favRecipes", JSON.stringify(newFavRecipes)); */
+    setFavRecipes([...newFavRecipes]);
+   
   
     try {
       await addFavRecipeToDB(user.email, newFavRecipes);

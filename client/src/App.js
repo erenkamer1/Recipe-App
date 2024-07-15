@@ -20,18 +20,16 @@ import SingleRecipe from "./components/SingleRecipe.js";
 import ProfileSingleRecipe from "./components/ProfileSingleRecipe.js";
 import ViewSavedShoppingList from "./components/ViewSavedShoppingList.js";
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
   const [favRecipes, setFavRecipes] = useState(JSON.parse(localStorage.getItem("favRecipes")) || []);
   const [shoppingList, setShoppingList] = useState([]);
+
   useEffect(() => {
-    localStorage.clear();
     const verify_token = async () => {
       try {
-        localStorage.clear();
         if (!token) {
           setIsLoggedIn(false);
         } else {
@@ -49,7 +47,6 @@ function App() {
   useEffect(() => {
     if (user && isLoggedIn) {
       getShoppingListFromDB(user.email);
-      localStorage.clear();
     }
   }, [user, isLoggedIn]);
 
@@ -67,11 +64,7 @@ function App() {
     try {
       const response = await axios.post(`${URL}/users/shoppingList/get`, { email });
       console.log("Fetched shopping list:", response.data);
-      
-        setShoppingList(response.data.shoppingList); 
-       /*  localStorage.setItem("shoppingList", JSON.stringify(response.data.shoppingList)); */
-        console.log("Shopping list:", response.data.shoppingList);
-     
+      setShoppingList(response.data.shoppingList); 
     } catch (error) {
       console.log('Error:', error);
     }
@@ -101,7 +94,6 @@ function App() {
 
       await deleteFavRecipeFromDB(user.email, newFavRecipes);
       setFavRecipes(newFavRecipes);
-      /* localStorage.setItem("favRecipes", JSON.stringify(newFavRecipes)); */
       alert("Recipe deleted from favourites");
     } else {
       alert("Recipe not found in favourites");
@@ -120,22 +112,22 @@ function App() {
   };
 
   const login = (token) => {
-    debugger;
     let decodedToken = jose.decodeJwt(token);
     let user = {
       email: decodedToken.userEmail,
     };
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
     setIsLoggedIn(true);
     getFavRecipesFromDB(user.email);
-    /* getShoppingListFromDB(user.email); */
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsLoggedIn(false);
+    setUser(null);
   };
 
   return (
