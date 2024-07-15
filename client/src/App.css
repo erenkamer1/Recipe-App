@@ -484,8 +484,6 @@
   background-color: #d32f2f;
 }
 
-/* styles.css veya App.css gibi bir dosyada tanımlayabilirsiniz */
-
 .view-saved-shopping-list {
   max-width: 600px;
   margin: 0 auto;
@@ -577,10 +575,10 @@
     font-size: 0.625em;
   }
   .form-row input {
-    width: 100%; /* İnputların ekranın tamamını kaplamasını sağlar */
-    max-width: 100%; /* Maksimum genişliği ekranın genişliği kadar olur */
-    font-size: 0.75em; /* Font boyutunu küçülttük */
-    padding: 0.5em; /* Kenar boşluklarını ayarladık */
+    width: 100%; 
+    max-width: 100%; 
+    font-size: 0.75em; 
+    padding: 0.5em; 
     box-sizing: border-box;
   }
   .save-button {
@@ -598,8 +596,7 @@
     width: auto;
   }
 }
-
-@media (max-width: 360px) {
+  @media (max-width: 360px) {
   .categories h2 {
     font-size: 1em;
     text-align: center;
@@ -742,9 +739,9 @@
   }
 }
 
-@media screen and (max-width: 918px) {
+@media  (max-width: 918px) {
   .categories-heading {
-    font-size: 1em;
+    font-size: 10px;
     display: block;
     text-align: center;
     margin-bottom: 6em;
@@ -757,7 +754,16 @@
   }
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1120px) {
+  .categories-heading {
+    font-size: 1em;
+    display: block;
+    text-align: center;
+    margin-bottom: 6em;
+  }
+}
+
+@media screen and (max-width: 1340px) and (min-width: 1014px)  {
   .categories-heading {
     font-size: 1.5em;
     display: block;

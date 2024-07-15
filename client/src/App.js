@@ -65,8 +65,8 @@ function App() {
       const response = await axios.post(`${URL}/users/shoppingList/get`, { email });
       console.log("Fetched shopping list:", response.data);
       
-        setShoppingList(response.data.shoppingList); // API'den alınan alışveriş listesini state'e kaydet
-        localStorage.setItem("shoppingList", JSON.stringify(response.data.shoppingList));
+        setShoppingList(response.data.shoppingList); 
+       /*  localStorage.setItem("shoppingList", JSON.stringify(response.data.shoppingList)); */
         console.log("Shopping list:", response.data.shoppingList);
      
     } catch (error) {
@@ -98,7 +98,7 @@ function App() {
 
       await deleteFavRecipeFromDB(user.email, newFavRecipes);
       setFavRecipes(newFavRecipes);
-      localStorage.setItem("favRecipes", JSON.stringify(newFavRecipes));
+      /* localStorage.setItem("favRecipes", JSON.stringify(newFavRecipes)); */
       alert("Recipe deleted from favourites");
     } else {
       alert("Recipe not found in favourites");

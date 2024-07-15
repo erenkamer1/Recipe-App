@@ -120,12 +120,11 @@ const getShoppingList = async (req, res) => {
     res.json({ ok: false, error });
   }
 };
-// controllers/users.controllers.js
 
 const deleteShoppingList = async (req, res) => {
   const { email } = req.body;
   try {
-    const user = await User.findOneAndUpdate({ email }, { shoppingList: [] }, { new: true });
+    const user = await User.findOneAndUpdate({ email }, { shoppingList: [] });
     res.json({ ok: true, message: 'Shopping list deleted successfully', shoppingList: user.shoppingList });
   } catch (error) {
     console.error('Error deleting shopping list:', error);

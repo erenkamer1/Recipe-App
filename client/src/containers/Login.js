@@ -39,7 +39,7 @@ const Login = (props) => {
         );
         setTimeout(() => {
           props.login(response.data.token);
-          navigate("/home");
+          navigate("/");
         }, 2000);
       }
     } catch (error) {

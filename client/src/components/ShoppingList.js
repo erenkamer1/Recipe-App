@@ -37,7 +37,7 @@ function ShoppingList({ user }) {
       const mergedList = [...existingList, ...list];
   
       // Save merged list to localStorage
-      localStorage.setItem("shoppingList", JSON.stringify(mergedList));
+      /* localStorage.setItem("shoppingList", JSON.stringify(mergedList)); */
       const responseData = await addShoppingListToDB(user.email, mergedList);
       console.log(responseData);
       alert("Shopping list saved successfully!");
@@ -157,7 +157,7 @@ function ShoppingList({ user }) {
       </div>
       <button onClick={saveShoppingList} className="save-button">Save</button>
       <div>
-        <button onClick={handleSeeSavedLists} className="see-button">See saved lists</button>
+        <button onClick={handleSeeSavedLists} className="see-button">See saved list</button>
       </div>
     </div>
   );

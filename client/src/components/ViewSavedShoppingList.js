@@ -8,8 +8,8 @@ const ViewSavedShoppingList = ({ user, shoppingList, setShoppingList }) => {
     const response = await axios.post(`${URL}/users/shoppingList/get`, { email: user.email});
     debugger
     console.log("Fetched shopping list:", response.data);
-    setShoppingList(response.data.shoppingList); // API'den alınan alışveriş listesini state'e kaydet
-        localStorage.setItem("shoppingList", JSON.stringify(response.data.shoppingList));
+    setShoppingList(response.data.shoppingList); 
+        /* localStorage.setItem("shoppingList", JSON.stringify(response.data.shoppingList)); */
         console.log("Shopping list:", response.data.shoppingList);
   }, []);
 
