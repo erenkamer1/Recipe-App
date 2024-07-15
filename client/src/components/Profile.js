@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 function Profile({ user, logout, deleteFavRecipeFromDB, favRecipes, setFavRecipes, deleteFavRecipe, deleteAllFavRecipes}) {
   let navigate = useNavigate();
-  console.log(favRecipes);
+  
 
   
   const handleViewRecipeClick = (recipe) => {
     console.log("Clicked recipe:", recipe);
     navigate(`/profile/${recipe.label}`, { state: { recipe } });
-    console.log(recipe);
-    console.log(favRecipes);
+   
   };
 
   return (
