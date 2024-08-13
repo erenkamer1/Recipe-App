@@ -1,4 +1,4 @@
-# Currency App
+# Recipes App
 
 
 ## Features
